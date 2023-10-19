@@ -24,12 +24,13 @@ void BallDetector_Innit();
  * detected or not when called. Use DistanceSensor
  * functions for this. Do not put all the code in
  * this function.
- * @return true 
- * A ball was detected
- * @return false 
- * No ball is detected
+ * @return unsigned char 
+ * 0: No ball
+ * 1: Ball on the left
+ * 2: Ball on the right
+ * 3: Ball on both sides (error)
  */
-bool BallDetector_DetectBall();
+unsigned char BallDetector_DetectBall();
 
 // I suggest making more functions. You could make one that makes the big number from the smaller number for example.
 // The functions you make should start with BallDetector_. variables as inputs should be lower camelCase.
