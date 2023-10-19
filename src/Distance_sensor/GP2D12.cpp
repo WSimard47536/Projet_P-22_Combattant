@@ -1,3 +1,14 @@
+/**
+ * @file GP2D12.cpp
+ * @author William ()
+ * @brief Source file for GP2D12 distance sensor
+ * @version 0.1
+ * @date 2023-10-19
+ * 
+ * @copyright Copyright (c) 2023
+ * 
+ */
+
 #include "Distance_sensor/GP2D12.hpp"
 
 /**
