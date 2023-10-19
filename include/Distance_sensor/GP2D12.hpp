@@ -10,7 +10,6 @@
  */
 
 #pragma once
-#include "LibRobus.h"
 
 /**
  * @brief Sets base values
@@ -18,12 +17,14 @@
  * @param pinNumber 
  * pin to set (between 0 and 3) (J9-J12)
  */
-void GP2D12_init();
+void GP2D12_Init(int pinNumber);
 
 /**
  * @brief Reads the IR sensor at specified pin
  * 
  * @param pinNumber 
  * pin to read (between 0 and 3)
+ * @return unsigned short
+ * raw data (16 bits)
  */
-uint16_t GP2D12_read(int pinNumber);
+unsigned short GP2D12_Read(int pinNumber);
