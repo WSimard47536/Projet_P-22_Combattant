@@ -6,6 +6,7 @@
  * @date 2023-10-19
  * @copyright Copyright (c) 2023
  */
+#include "Colour_sensor/GROVE.hpp"
 
 /**
  * @brief Initialises one GROVE sensor depending on given
@@ -34,7 +35,7 @@ void GROVE_Innit(int redPin, int greenPin, int bluePin)
  */
 unsigned int GROVE_GetColor(int redPin, int greenPin, int bluePin)
 {
-    
+
 }
 
 // I suggest making more functions. You could make one that makes the big number from the smaller number for example.

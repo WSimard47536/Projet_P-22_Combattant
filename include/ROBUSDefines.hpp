@@ -42,3 +42,12 @@
 #define FULL_ROTATIONS_PULSES 3200.00f
 #pragma endregion
 
+
+#pragma region -COLOUR_SENSORS-
+/** @brief The arduino pin used for the red input of the GROVE colour sensor */
+#define SENSOR1_RED_PIN
+/** @brief The arduino pin used for the green input of the GROVE colour sensor */
+#define SENSOR1_GREEN_PIN
+/** @brief The arduino pin used for the blue input of the GROVE colour sensor */
+#define SENSOR1_BLUE_PIN
+#pragma endregion
