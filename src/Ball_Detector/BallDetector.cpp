@@ -9,7 +9,7 @@
  * 
  * @warning USE THE DEFINE HEADER FILE TO PUT YOUR DEFINES.
  */
-#pragma once
+#include "Ball_Detector/BallDetector.hpp"
 
 /**
  * @brief Function that should initialise everything
@@ -19,7 +19,7 @@
  */
 void BallDetector_Innit()
 {
-    
+
 }
 
 /**
