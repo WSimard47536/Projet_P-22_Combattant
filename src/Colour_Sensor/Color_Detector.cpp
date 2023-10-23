@@ -7,7 +7,7 @@ byte gammatable[256];
 
 Adafruit_TCS34725 tcs = Adafruit_TCS34725(TCS34725_INTEGRATIONTIME_50MS, TCS34725_GAIN_4X);
 
-void setup() {
+void ColorDetector_init() {
     Serial.begin(9600);
     Serial.println("Color View Test!");
 
@@ -20,7 +20,7 @@ void setup() {
 }
 
 
-void loop() {
+void ColorDetector_detectColor() {
     uint16_t clear, red, green, blue;
 
     tcs.setInterrupt(false);      // turn on LED
