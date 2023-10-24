@@ -17,4 +17,6 @@ void loop()
 {
   //waitForWhistle();
   ColorDetector_detectColor();
+  int color=Color_Detection();
+  Serial.println(color);
 }
