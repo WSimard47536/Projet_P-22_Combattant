@@ -27,7 +27,7 @@ void S3003_Innit(int servoMotorPin);
  * position.
  * @param WantedPosition 
  */
-void S3003_SetPosition(int servoMotorPin, float WantedPosition);
+void S3003_SetAngle(int servoMotorPin, float WantedPosition);
 
 // I suggest making more functions. You could make one that makes the big number from the smaller number for example.
 // The functions you make should start with GROVE_. variables as inputs should be lower camelCase.

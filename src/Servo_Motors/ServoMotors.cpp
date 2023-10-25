@@ -7,7 +7,7 @@
  * @copyright Copyright (c) 2023
  */
 #include "Servo_Motors/ServoMotors.hpp"
-
+#include <LibRobus.h>
 /**
  * @brief Initialisation function of a single
  * servo motor based on a given arduino pin
@@ -15,7 +15,10 @@
  * @param servoMotorPin 
  * Arduino pin number
  */
-void S3003_Innit(int servoMotorPin);
+void S3003_Innit(int servoMotorPin)
+{
+    SERVO_Enable(servoMotorPin);
+}
 
 /**
  * @brief Simple function that must put the right
@@ -25,7 +28,12 @@ void S3003_Innit(int servoMotorPin);
  * position.
  * @param WantedPosition 
  */
-void S3003_SetPosition(int servoMotorPin, float WantedPosition);
+void S3003_SetAngle(int servoMotorPin, float WantedPosition)
+{
+   SERVO_SetAngle(servoMotorPin, WantedPosition);
+   delay(3000);
+    }
+   
 
 // I suggest making more functions. You could make one that makes the big number from the smaller number for example.
 // The functions you make should start with GROVE_. variables as inputs should be lower camelCase.
