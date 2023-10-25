@@ -1,6 +1,6 @@
 /**
  * @file CupWhacker.cpp
- * @author William ()
+ * @author William, Trévys()
  * @brief Source file for Cup whacking
  * @version 0.1
  * @date 2023-10-19
@@ -8,7 +8,7 @@
  * @copyright Copyright (c) 2023
  * 
  */
-
+// TODO:  Might be useless.
 #include "CupWhacker.hpp"
 
 /**
