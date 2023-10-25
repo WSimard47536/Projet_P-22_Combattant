@@ -9,10 +9,12 @@ void setup()
 {
   BoardInit();
   InitializeProximitySensors();
+  SERVO_Enable(1)
 }
 
 void loop()
 {
+  SERVO_SetAngle(1,55);
   //waitForWhistle();
 
 }
