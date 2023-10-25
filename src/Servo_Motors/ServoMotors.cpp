@@ -17,7 +17,7 @@
  */
 void S3003_Innit(int servoMotorPin)
 {
-    SERVO_Enable(servoMotorPin);
+    SERVO_Enable(servoMotorPin); // servomotor 1 est pour le cup whacker et le 0 est pour le cup placer
 }
 
 /**

@@ -17,7 +17,7 @@
  * @param pinNumber 
  * pin to set (between 0 and 3) (J9-J12)
  */
-void GP2D12_Init(int pinNumber);
+void GP2D12_Innit(int pinNumber);
 
 /**
  * @brief Reads the IR sensor at specified pin

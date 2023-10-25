@@ -17,7 +17,7 @@
  * @param servoMotorPin 
  * Arduino pin number
  */
-void S3003_Innit(int servoMotorPin);
+void S3003_Innit(int servoMotorPin);// servomotor 1 est pour le cup whacker et le 0 est pour le cup placer
 
 /**
  * @brief Simple function that must put the right
