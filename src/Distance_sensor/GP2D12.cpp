@@ -33,7 +33,7 @@ void GP2D12_Innit(int pinNumber)
  * @return float
  * distance to object (in centimeters)
  */
-float GP2D12_Read(int pinNumber)
+unsigned short GP2D12_Read(int pinNumber)
 {
     float leftIRD; 
     float rightIRD; 
