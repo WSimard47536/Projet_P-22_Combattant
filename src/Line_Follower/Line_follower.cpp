@@ -1,3 +1,6 @@
+#include "Line_Follower/Line_follower.hpp"
+#include "Arduino.h"
+
 /**
  * @file Line_follower.cpp
  * @author Elodie
@@ -9,8 +12,6 @@
  * 
  */
 
-#include "Line_Follower/Line_follower.hpp"
-#include "Arduino.h"
 
 /**
  * @brief Function that initialize the line follower sensor (analog pin)
@@ -61,7 +62,7 @@ int LineFollower_Read(int LineFollowerPin){
         move = TURN_FAR_RIGHT;
     }
 
-    if ((((PA_OOOXO-10) < status) && (status < (PA_OOOXO))) || (((PA_OOXXO-10) < status) && (status < (PA_OOXXO)))){ 
+    if ((((PA_OOOXO-10) < status) && (status < (PA_OOOXO+10))) || (((PA_OOXXO-10) < status) && (status < (PA_OOXXO+10)))){ 
         move = TURN_RIGHT;
     }
 
