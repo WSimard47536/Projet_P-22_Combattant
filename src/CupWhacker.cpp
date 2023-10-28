@@ -10,9 +10,7 @@
  */
 // TODO:  Might be useless.
 #include "CupWhacker.hpp"
-#include "Servo_Motors.cpp"
-#include "GP2D12.cpp"
-#include "Color_Detector.cpp"
+
 /**
  * @brief Sets base values
  */
@@ -56,4 +54,5 @@ void CupWhacker_WhackCup()
         }
         S3003_setAngle(1,90);   
  }
+ return 0;
 }

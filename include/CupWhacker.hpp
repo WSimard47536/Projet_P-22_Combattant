@@ -13,6 +13,9 @@
 
 //include servo
 #include "Distance_sensor/GP2D12.hpp"
+#include "Servo_Motors/ServoMotors.hpp"
+#include "Color_Detector.hpp"
+
 
 /**
  * @brief Sets base values
