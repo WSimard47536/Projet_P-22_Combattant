@@ -8,10 +8,7 @@
  * @copyright Copyright (c) 2023
  * 
  */
-#include "GP2D12.hpp"
 #include "CupDetector.hpp"
-#include "Distance_Sensor.cpp"
-#include "Colour_Sensor.cpp"
 /**
  * @brief Sets base values
  */
