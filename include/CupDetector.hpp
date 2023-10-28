@@ -11,7 +11,7 @@
 
 #pragma once
 
-#include "Distance_sensor/GP2D12.hpp"
+
 
 /**
  * @brief Sets base values
