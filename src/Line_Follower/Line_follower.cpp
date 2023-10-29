@@ -52,30 +52,32 @@ int LFP_Read(int LineFollowerPin){
 
 int LineFollower_Read(int LineFollowerPin){
     int status = LFP_Read(LineFollowerPin);
+    Serial.println(status);
     int move = 0;
     
-    if (((PA_OOXOO-10) < status) && (status < (PA_OOXOO+10))){ 
+    if (((PA_OOXOO-MARGE) < status) && (status < (PA_OOXOO+MARGE))){ 
         move = FORWARD;
     }
 
-    if ((((PA_OOOOX-10) < status) && (status < (PA_OOOOX+10))) || (((PA_OOOXX-10) < status) && (status < (PA_OOOXX+10)))){
+    else if ((((PA_OOOOX-MARGE) < status) && (status < (PA_OOOOX+MARGE))) || (((PA_OOOXX-MARGE) < status) && (status < (PA_OOOXX+MARGE)))){
         move = TURN_FAR_RIGHT;
     }
 
-    if ((((PA_OOOXO-10) < status) && (status < (PA_OOOXO+10))) || (((PA_OOXXO-10) < status) && (status < (PA_OOXXO+10)))){ 
+    else if ((((PA_OOOXO-MARGE) < status) && (status < (PA_OOOXO+MARGE))) || (((PA_OOXXO-MARGE) < status) && (status < (PA_OOXXO+MARGE)))){ 
         move = TURN_RIGHT;
     }
 
-    if ((((PA_OXXOO-10) < status) && (status < (PA_OXXOO+10))) || (((PA_OXOOO-10) < status) && (status < (PA_OXOOO+10)))){ 
+    else if ((((PA_OXXOO-MARGE) < status) && (status < (PA_OXXOO+MARGE))) || (((PA_OXOOO-MARGE) < status) && (status < (PA_OXOOO+MARGE)))){ 
         move = TURN_LEFT;
     }
 
-    if ((((PA_XXOOO-10) < status) && (status < (PA_XXOOO+10))) || (((PA_XOOOO-10) < status) && (status < (PA_XOOOO+10)))){
+    else if ((((PA_XXOOO-MARGE) < status) && (status < (PA_XXOOO+MARGE))) || (((PA_XOOOO-MARGE) < status) && (status < (PA_XOOOO+MARGE)))){
         move = TURN_FAR_LEFT;
     }
 
     else{
         move = ERROR;
     }
+    Serial.println(move);
     return move;
 }

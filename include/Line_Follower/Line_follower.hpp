@@ -9,7 +9,7 @@
  * 
  */
 
-#define PA_LINEFOLLOWER // valeur de la pin analogique pour le suiveur de ligne
+#define PA_LINEFOLLOWER  A2 // valeur de la pin analogique pour le suiveur de ligne
 
 #define TURN_FAR_LEFT -2
 #define TURN_LEFT -1
@@ -18,15 +18,19 @@
 #define TURN_FAR_RIGHT 2
 #define ERROR 3
 
-#define PA_OOOOX 31.713
-#define PA_OOOXO 64.0398
-#define PA_OOOXX 95.3436
-#define PA_OOXOO 135.036
-#define PA_OOXXO 198.462
-#define PA_OXOOO 259.842
-#define PA_OXXOO 394.878
-#define PA_XOOOO 517.638
-#define PA_XXOOO 779.526
+/*the X and O are switch - see the green lines in the excel*/
+
+#define PA_OOOOX 980.034
+#define PA_OOOXO 947.298
+#define PA_OOOXX 914.562
+#define PA_OOXOO 875.688
+#define PA_OOXXO 812.262
+#define PA_OXOOO 748.222
+#define PA_OXXOO 613.186
+#define PA_XOOOO 491.04
+#define PA_XXOOO 229.152
+
+#define MARGE 15
 
 /**
  * @brief Function that initialize the line follower sensor (analog pin)
