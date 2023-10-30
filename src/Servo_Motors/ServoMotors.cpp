@@ -31,7 +31,6 @@ void S3003_Innit(int servoMotorPin)
 void S3003_SetAngle(int servoMotorPin, float WantedPosition)
 {
    SERVO_SetAngle(servoMotorPin, WantedPosition);
-   delay(3000);
     }
    
 

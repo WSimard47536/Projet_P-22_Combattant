@@ -33,8 +33,11 @@ void GP2D12_Innit(int pinNumber)
  */
 unsigned short GP2D12_Read(int pinNumber)
 {
+
 // tension lu par l'arduino 10cm = 2.45V environ,40cm = 0.75V, 50cm = 0.62V environ et 80cm 0.4V
-    return 0.0f;
+    
+    return (4800/(analogRead(pinNumber)-20));
+    
     // pinNumber devrait être un #define et on veut simplement caller la fonction de LibRobus (voir wiki librobus/documentation matérielle)
     // voir https://github.com/UdeS-GRO/LibRobus/wiki/Documentation-mat%C3%A9rielle#capteur-de-distance-gp2d12-et-gp2y0a21yk0f
 }
