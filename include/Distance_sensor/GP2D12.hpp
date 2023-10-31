@@ -27,4 +27,4 @@ void GP2D12_Innit(int pinNumber);
  * @return unsigned short
  * raw data (16 bits)
  */
-unsigned short GP2D12_Read(int pinNumber);
+float GP2D12_Read(int pinNumber);

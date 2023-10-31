@@ -1,6 +1,18 @@
 #pragma once
 
 #include "ROBUSMovement.hpp"
+#include "Colour_Sensor/Color_Detector.hpp"
+#include "Distance_sensor/GP2D12.hpp"
+
+#define ZONE2_DISTANCE_CM 61.96f
+#define ZONE4_5_DISTANCE_CM 243.84f
+#define ZONE9_0_DISTANCE_CM ZONE4_5_DISTANCE_CM
+
+#define ZONE4_DISTANCE_CM 121.92f
+
+#define ZONE6_MEET_DISTANCE_CM 15.0f
+
+#define ROBOT_RSIDE_BLUE_TO_WALL_DISTANCE_CM (30.48f - DISTANCE_BT_WHEEL) / 2
 
 typedef struct
 {

@@ -1,17 +1,18 @@
 #include "Resolution/ChallengeSolver.hpp"
 
 RobotPosition currentRobotPosition;
+int assignedColor;
 
 void ChallengeSolver_Init()
 {
     currentRobotPosition.positionX_pulses = 0; //START POSITION_x
-
+    assignedColor = Color_Detection();
 }
 
 float GetRobotOrientation()
 {
     // Faire arctan pour avoir en degrés
-    return (position.positionX_pulses % FULL_ROTATIONS_PULSES) / (position.positionY_pulses % FULL_ROTATIONS_PULSES);
+    //return (position.positionX_pulses % FULL_ROTATIONS_PULSES) / (position.positionY_pulses % FULL_ROTATIONS_PULSES);
 }
 
 void ChallengeSolver_ExecuteAllSteps()
@@ -22,21 +23,29 @@ void ChallengeSolver_ExecuteAllSteps()
 void ChallengeSolver_ExecuteFirstLap()
 {
     // Turn Right (zone 1)
-    // Tourner en arc de 90 degrés à droite (rayon dépendant de la zone assignée)
+    ROBUSMovement_arcMove(0.25f, assignedColor, 90, RIGHT_TURN);
 
     // Straight (zone 2)
-    ROBUSMovement_moveStraight(FORWARD, 0.25f, 60.96f); // MESURER LA DISTANCE SUR LE PARCOURS
+    ROBUSMovement_moveStraight(FORWARD, 0.25f, ZONE2_DISTANCE_CM);
 
     // Turn Right (zone 3)
-    // Tourner en arc de 90 degrés à droite (rayon dépendant de la zone assignée)
+    ROBUSMovement_arcMove(0.25f, assignedColor, 90, RIGHT_TURN);
 
     // Move Straight and Whack the cup (zone 4 - 5)
-    ROBUSMovement_moveStraight(FORWARD, 0.25f, 243.84f); // MESURER LA DISTANCE SUR LE PARCOURS
+    ROBUSMovement_moveStraight(FORWARD, 0.25f, ZONE4_5_DISTANCE_CM); // MESURER LA DISTANCE SUR LE PARCOURS
 
-    // Turn Right on self or other (zone 6)
-    ROBUSMovement_turnOnSelf(RIGHT_TURN, 0.25f, 25);
+    // Turn to create intersection point with black line (zone 6)
+    if (assignedColor == GREEN)
+    {
+        ROBUSMovement_turnOnSelf(LEFT_TURN, 0.25f, 25.0f);
+    }
+    else 
+    {
+        ROBUSMovement_turnOnSelf(RIGHT_TURN, 0.25f, 25.0f);
+    }
+
     // Go forward until center line follower detects line (zone 6)
-    ROBUSMovement_moveStraight(FORWARD, 0.25f, 25.0f); // REVOIR LA DISTANCE
+    ROBUSMovement_moveStraight(FORWARD, 0.25f, ZONE6_MEET_DISTANCE_CM);
 
     // Follow line until ball is found (zone 6 - 7 - 8)
     // SUIVRE LA LIGNE
@@ -44,26 +53,42 @@ void ChallengeSolver_ExecuteFirstLap()
     // DROP LE CUP
 
     // Go to zone 9 (zone 6 - 7 - 8)
-    // GO TO ZONE 9
+    // Continuer de suivre la ligne jusqu'à la fin
 
     // Go to start with jump (zone 9 - 0)
-    ROBUSMovement_moveStraight(FORWARD, 0.40f, 121.92f); // MESURER LA DISTANCE ET AJUSTER AVEC JUMP
-    ROBUSMovement_moveStraight(FORWARD, 0.25f, 121.92f); // MESURER LA DISTANCE
+    float speedFactor = 0.95f;
+    MOTOR_SetSpeed(LEFT_MOTOR,0.40f);
+    MOTOR_SetSpeed(RIGHT_MOTOR,0.40f);
+    
+    while (ENCODER_Read(RIGHT_MOTOR) < ZONE9_0_DISTANCE_CM)
+    {
+        float currentDistanceToWall = GP2D12_Read(3);
+        if (currentDistanceToWall > ROBOT_RSIDE_BLUE_TO_WALL_DISTANCE_CM)
+        {
+            MOTOR_SetSpeed(LEFT_MOTOR,0.40f / speedFactor);
+        }
+        else if (currentDistanceToWall < ROBOT_RSIDE_BLUE_TO_WALL_DISTANCE_CM)
+        {
+            MOTOR_SetSpeed(LEFT_MOTOR,0.40f * speedFactor);
+        }
+        ROBUSMovement_stop();
+        //if lineFollower break;
+    }
 }
 
 void ChallengeSolver_ExecuteSecondLap()
 {
     // Turn Right (zone 1)
-    // Tourner en arc de 90 degrés à droite (zone bleue)
+    ROBUSMovement_arcMove(0.25f, BLUE, 90, RIGHT_TURN);
 
     // Straight (zone 2)
-    ROBUSMovement_moveStraight(FORWARD, 0.25f, 60.96f); // MESURER LA DISTANCE + 1 pied si zone jaune
+    ROBUSMovement_moveStraight(FORWARD, 0.40f, ZONE2_DISTANCE_CM); // MESURER LA DISTANCE
 
     // Turn Right (zone 3)
-    // Tourner en arc de 90 degrés à droite (zone bleue)
+    ROBUSMovement_arcMove(0.25f, assignedColor, 90, RIGHT_TURN);
 
     // Straight (zone 4 - 5)
-    ROBUSMovement_moveStraight(FORWARD, 0.25f, 121.92f); // MESURER LA DISTANCE
+    ROBUSMovement_moveStraight(FORWARD, 0.40f, ZONE4_DISTANCE_CM); // MESURER LA DISTANCE
 
     // Turn Right (zone 6)
     // Tourner en arc de 90 degrés à droite (4 - 2.6 pieds de rayon) MESURER LES VRAIES VALEURS
@@ -76,5 +101,6 @@ void ChallengeSolver_ExecuteSecondLap()
 
 void ChallengerSolver_ExecuteRace()
 {
-
+    ChallengeSolver_ExecuteFirstLap();
+    ChallengeSolver_ExecuteSecondLap();
 }
