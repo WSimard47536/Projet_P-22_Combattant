@@ -9,7 +9,13 @@
  * @copyright Copyright (c) 2023
  */
 
-#include "Line_Movements.hpp"
+#include "LibRobus.h"
+#include "Line_Follower/Line_Movements.hpp"
+
+#define LEFT_MOTOR 0
+#define RIGHT_MOTOR 1
+#define LEFT_ENCODER 0
+#define RIGHT_ENCODER 1
 
 /**
  * @brief
@@ -25,8 +31,8 @@ void Movements_SetMotorRatio(float ratio)
     float leftRatio = (ratio/2) + 0.5f;
     float rightRatio = -(ratio/2) + 0.5f;
 
-    MOTOR_SetSpeed(LEFT_MOTOR, leftRatio);
-    MOTOR_SetSpeed(RIGHT_MOTOR, rightRatio);
+    MOTOR_SetSpeed(LEFT_MOTOR, leftRatio/3);
+    MOTOR_SetSpeed(RIGHT_MOTOR, rightRatio/3);
 }
 
 /**
@@ -62,22 +68,22 @@ bool Movements_FollowLine()
      * values to avoid constantly telling the
      * motors to update to newer values.
      */
-    static int previouslySeenLine = 3;
+    static int previouslySeenLine = 10;
     int lines = LineFollower_Read(PA_LINEFOLLOWER);
 
     // CHECK // Is the returned value an error value?
     if (lines == ERROR)
     {
         // Stop the robot just to be sure.
-        MOTOR_SetSpeed(LEFT_MOTOR, 0);
-        MOTOR_SetSpeed(RIGHT_MOTOR, 0);
+        //MOTOR_SetSpeed(LEFT_MOTOR, 0);
+        //MOTOR_SetSpeed(RIGHT_MOTOR, 0);
         return false;
     }
 
     // CHECK // Did the function last set the motors to this value?
     if (previouslySeenLine != lines)
     {
-        previouslySeenLine = lines;
+        //previouslySeenLine = lines;
         // CHECK // What is the sensor currently looking at?
         switch(lines)
         {

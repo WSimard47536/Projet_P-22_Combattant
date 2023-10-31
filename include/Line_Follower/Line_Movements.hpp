@@ -11,7 +11,7 @@
 
 #pragma once
 
-#include "Line_follower.hpp"
+#include "Line_Follower/Line_follower.hpp"
 
 /// @brief The ratio between the right and the left wheel when turning full left
 #define LINE_MOVEMENT_RATIO_TURN_FAR_LEFT -1.0f
