@@ -17,6 +17,7 @@
 #define TURN_RIGHT 1
 #define TURN_FAR_RIGHT 2
 #define ERROR 3
+#define START 4
 
 /*the X and O are switch - see the green lines in the excel*/
 
@@ -29,6 +30,8 @@
 #define PA_OXXOO 613.186
 #define PA_XOOOO 491.04
 #define PA_XXOOO 229.152
+#define PA_XXXXX 0.4092 // ligne de départ
+
 
 #define MARGE 15
 

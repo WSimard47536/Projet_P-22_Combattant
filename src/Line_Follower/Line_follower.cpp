@@ -47,6 +47,8 @@ int LFP_Read(int LineFollowerPin){
  *  0 : move forward on the line
  *  1 : turn on the right to find the line
  *  2 : turn far on the right to find the line
+ *  3 : error
+ *  4 : ligne de départ
  * 
  */
 
@@ -75,6 +77,10 @@ int LineFollower_Read(int LineFollowerPin){
         move = TURN_FAR_LEFT;
     }
 
+    else if ((0 < status) && (status < PA_XXXXX)){
+        move = START;
+    }
+        
     else{
         move = ERROR;
     }
