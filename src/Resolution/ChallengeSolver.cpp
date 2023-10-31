@@ -9,11 +9,11 @@ void ChallengeSolver_Init()
     assignedColor = Color_Detection();
 }
 
-float GetRobotOrientation()
+/*float GetRobotOrientation()
 {
     // Faire arctan pour avoir en degrés
     //return (position.positionX_pulses % FULL_ROTATIONS_PULSES) / (position.positionY_pulses % FULL_ROTATIONS_PULSES);
-}
+}*/
 
 void ChallengeSolver_ExecuteAllSteps()
 {
@@ -57,50 +57,66 @@ void ChallengeSolver_ExecuteFirstLap()
 
     // Go to start with jump (zone 9 - 0)
     float speedFactor = 0.95f;
-    MOTOR_SetSpeed(LEFT_MOTOR,0.40f);
-    MOTOR_SetSpeed(RIGHT_MOTOR,0.40f);
+    MOTOR_SetSpeed(LEFT_MOTOR, 0.40f);
+    MOTOR_SetSpeed(RIGHT_MOTOR, 0.40f);
     
     while (ENCODER_Read(RIGHT_MOTOR) < ZONE9_0_DISTANCE_CM)
     {
         float currentDistanceToWall = GP2D12_Read(3);
-        if (currentDistanceToWall > ROBOT_RSIDE_BLUE_TO_WALL_DISTANCE_CM)
+        if (currentDistanceToWall > ROBOT_RSIDE_GREEN_TO_WALL_DISTANCE_CM)
         {
             MOTOR_SetSpeed(LEFT_MOTOR,0.40f / speedFactor);
         }
-        else if (currentDistanceToWall < ROBOT_RSIDE_BLUE_TO_WALL_DISTANCE_CM)
+        else if (currentDistanceToWall < ROBOT_RSIDE_GREEN_TO_WALL_DISTANCE_CM)
         {
             MOTOR_SetSpeed(LEFT_MOTOR,0.40f * speedFactor);
         }
-        ROBUSMovement_stop();
-        //if lineFollower break;
+        if (LineFollower_Read(PA_LINEFOLLOWER) != ERROR)
+        {
+            break;
+        }
     }
+    ROBUSMovement_stop();
 }
 
 void ChallengeSolver_ExecuteSecondLap()
 {
     // Turn Right (zone 1)
-    ROBUSMovement_arcMove(0.25f, BLUE, 90, RIGHT_TURN);
+    ROBUSMovement_arcMove(0.25f, GREEN, 90, RIGHT_TURN);
 
     // Straight (zone 2)
-    ROBUSMovement_moveStraight(FORWARD, 0.40f, ZONE2_DISTANCE_CM); // MESURER LA DISTANCE
+    ROBUSMovement_moveStraight(FORWARD, 0.40f, ZONE2_DISTANCE_CM);
 
     // Turn Right (zone 3)
-    ROBUSMovement_arcMove(0.25f, assignedColor, 90, RIGHT_TURN);
+    ROBUSMovement_arcMove(0.25f, GREEN, 90, RIGHT_TURN);
 
     // Straight (zone 4 - 5)
-    ROBUSMovement_moveStraight(FORWARD, 0.40f, ZONE4_DISTANCE_CM); // MESURER LA DISTANCE
+    ROBUSMovement_moveStraight(FORWARD, 0.40f, ZONE4_DISTANCE_CM);
 
     // Turn Right (zone 6)
-    // Tourner en arc de 90 degrés à droite (4 - 2.6 pieds de rayon) MESURER LES VRAIES VALEURS
+    ROBUSMovement_arcMove(0.25f, BLUE, 90, RIGHT_TURN);
 
     // Straight (zone 6 - 9)
-    // Avancer la distance à mesurer pour aller jusqu'à la zone verte
-
-    // Turn Right ()
+    float speedFactor = 0.95f;
+    MOTOR_SetSpeed(LEFT_MOTOR,0.40f);
+    MOTOR_SetSpeed(RIGHT_MOTOR,0.40f);
+    
+    while (ENCODER_Read(RIGHT_MOTOR) < ZONE9_0_DISTANCE_CM + 15.0f)
+    {
+        float currentDistanceToWall = GP2D12_Read(3);
+        if (currentDistanceToWall > ROBOT_RSIDE_GREEN_TO_WALL_DISTANCE_CM)
+        {
+            MOTOR_SetSpeed(LEFT_MOTOR,0.40f / speedFactor);
+        }
+        else if (currentDistanceToWall < ROBOT_RSIDE_GREEN_TO_WALL_DISTANCE_CM)
+        {
+            MOTOR_SetSpeed(LEFT_MOTOR,0.40f * speedFactor);
+        }
+    }
+    ROBUSMovement_stop();
 }
 
 void ChallengerSolver_ExecuteRace()
 {
-    ChallengeSolver_ExecuteFirstLap();
-    ChallengeSolver_ExecuteSecondLap();
+    
 }
