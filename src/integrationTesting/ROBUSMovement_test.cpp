@@ -7,7 +7,7 @@ void test_ROBUSMovement_moveStraight()
 
 void test_ROBUSMovement_turn()
 {
-  ROBUSMovement_turn(LEFT_TURN, 25, 0, 90);
+  //ROBUSMovement_turn(LEFT_TURN, 25, 0, 90);
 }
 
 void test_ROBUSMovement_turnOnSelf()

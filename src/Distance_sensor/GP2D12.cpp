@@ -30,9 +30,9 @@ void GP2D12_Init(int pinNumber)
  * @return float
  * distance to object (in centimeters)
  */
-float GP2D12_Read(int pinNumber)
+unsigned short GP2D12_Read(int pinNumber)
 {
-    return 0.0f;
+    return 0;
     // pinNumber devrait être un #define et on veut simplement caller la fonction de LibRobus (voir wiki librobus/documentation matérielle)
     // voir https://github.com/UdeS-GRO/LibRobus/wiki/Documentation-mat%C3%A9rielle#capteur-de-distance-gp2d12-et-gp2y0a21yk0f
 }
