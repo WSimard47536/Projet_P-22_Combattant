@@ -93,7 +93,7 @@ int LineFollower_Read(int LineFollowerPin){
         move = TURN_FAR_LEFT;
     }
 
-    else if ((0 < status) && (status < PA_XXXXX)){
+    else if ((0 < status) && (status < PA_XXXXX+MARGE)){
         move = START;
     }
         
