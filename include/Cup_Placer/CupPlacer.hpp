@@ -1,26 +1,26 @@
 /**
- * @file CupPlacer.hpp
- * @author LyamBRS (lyam.brs@gmail.com)
- * @brief Header file of the functions used to place the cup on the ping pong ball
- * @version 0.1
- * @date 2023-10-19
+ * @file CupPlacer.cpp
+ * @author Elxhadi (mohamedelhadi.bendjeddou@gmail.com) et Cedetic Sait-louis
+ * @brief File of functions used to drop the cup.
+ * @version 1.0
+ * @date 2023-10-30
  * @copyright Copyright (c) 2023
  */
 #pragma once
+#include "../include/Servo_Motors/ServoMotors.hpp"
 
 /**
- * @brief Function that must initialise everything that is needed
- * to make the cup placer work. This should probably call
- * SERVO init functions.
- */
-void CupPlacer_Innit();
+ * @brief Initializer of the servomotor mode and initial angle
+*/
+void CupPlacer_Init();
 
 /**
- * @brief Function that must place the cup on the detected poing pong ball.
- * This function DOES NOT detect the ball, it only PLACES the cup on the
- * ball. This should probably call SERVO functions.
- */
+ * @brief Placing cup function that uses servomotor as a pulling force 
+*/
 void CupPlacer_PlaceCup();
 
-// I suggest making more functions. You could make one that makes the big number from the smaller number for example.
-// The functions you make should start with CupPlacer_. variables as inputs should be lower camelCase.
+
+/**
+ * @brief Reinitialiser of the servomotor mode and initial angle
+*/
+void CupPlacer_Reset();

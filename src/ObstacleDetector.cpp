@@ -41,5 +41,5 @@ bool WallAligned(void){
  * 
  */
 void InitializeProximitySensors(void){
-    DC2318_Innit(DC2318_FRONT_PINS);
+    DC2318_Init(DC2318_FRONT_PINS);
 }

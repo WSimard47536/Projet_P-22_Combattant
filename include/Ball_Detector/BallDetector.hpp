@@ -1,36 +1,25 @@
 /**
- * @file BallDetector.hpp
- * @author LyamBRS (lyam.brs@gmail.com)
- * @brief 
- * @version 0.1
- * @date 2023-10-19
- * 
+ * @file BallDetector.cpp
+ * @author Elxhadi (mohamedelhadi.bendjeddou@gmail.com) et Cedetic Sait-louis
+ * @brief File of functions used to detect the ball.
+ * @version 1.0
+ * @date 2023-10-30
  * @copyright Copyright (c) 2023
- * 
- * @warning USE THE DEFINE HEADER FILE TO PUT YOUR DEFINES.
  */
+
 #pragma once
 
 /**
- * @brief Function that should initialise everything
- * needed for the ball detector to work. Do not manually
- * initialise using pinMode in this function. You must
- * call initializers of other functions.
+ * @brief LED's buffer mode initializer using DC2318 proximity sensor.
  */
-void BallDetector_Innit();
+void BallDetector_Init();
 
 /**
- * @brief This function should return if a ball is
- * detected or not when called. Use DistanceSensor
- * functions for this. Do not put all the code in
- * this function.
- * @return unsigned char 
- * 0: No ball
- * 1: Ball on the left
- * 2: Ball on the right
- * 3: Ball on both sides (error)
+ * @brief Ball detector that uses proximity sensor developed in APP01
+ * @param
+ * nb_verification: Number of verification used to handle false positives
+ * @return Bool
+ * True: Ball detected and verified
+ * False: No ball
  */
-unsigned char BallDetector_DetectBall();
-
-// I suggest making more functions. You could make one that makes the big number from the smaller number for example.
-// The functions you make should start with BallDetector_. variables as inputs should be lower camelCase.
+bool BallDetector_DetectBall(unsigned verificationCount);
