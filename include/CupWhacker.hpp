@@ -13,13 +13,21 @@
 
 //include servo
 #include "Distance_sensor/GP2D12.hpp"
+#include "Servo_Motors/ServoMotors.hpp"
+#include "Colour_Sensor/Color_Detector.hpp"
 
+#define INTERVALLE_BRAS 5000
+#define DISTANCE_CAPTAGE 30
 /**
  * @brief Sets base values
  */
 void CupWhacker_Init();
 
+void CupWhacker_Reset();
+
 /**
  * @brief Whacks a detected cup
  */
-void CupWhacker_WhackCup();
+bool CupWhacker_WhackCup();
+
+bool CupWhacker_main();

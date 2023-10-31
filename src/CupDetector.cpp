@@ -8,13 +8,11 @@
  * @copyright Copyright (c) 2023
  * 
  */
-
 #include "CupDetector.hpp"
-
 /**
  * @brief Sets base values
  */
-void CupDetector_Init()
+void CupDetector_Innit()
 {
 
 }
@@ -30,3 +28,4 @@ unsigned short CupDetector_GetCup()
 {
     return 0;
 }
+//TODO: set angle for servomotor depending on the color of the track(y = 180 et g = 0) and distance(50cm)
