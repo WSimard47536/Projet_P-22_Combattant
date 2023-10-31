@@ -61,19 +61,35 @@ int LineFollower_Read(int LineFollowerPin){
         move = FORWARD;
     }
 
-    else if ((((PA_OOOOX-MARGE) < status) && (status < (PA_OOOOX+MARGE))) || (((PA_OOOXX-MARGE) < status) && (status < (PA_OOOXX+MARGE)))){
+    else if (((PA_OOOOX-MARGE) < status) && (status < (PA_OOOOX+MARGE))){
         move = TURN_FAR_RIGHT;
     }
 
-    else if ((((PA_OOOXO-MARGE) < status) && (status < (PA_OOOXO+MARGE))) || (((PA_OOXXO-MARGE) < status) && (status < (PA_OOXXO+MARGE)))){ 
+    else if (((PA_OOOXX-MARGE) < status) && (status < (PA_OOOXX+MARGE))){
+        move = TURN_FAR2_RIGHT;
+    }
+
+    else if (((PA_OOOXO-MARGE) < status) && (status < (PA_OOOXO+MARGE))) { 
         move = TURN_RIGHT;
     }
 
-    else if ((((PA_OXXOO-MARGE) < status) && (status < (PA_OXXOO+MARGE))) || (((PA_OXOOO-MARGE) < status) && (status < (PA_OXOOO+MARGE)))){ 
+    else if (((PA_OOXXO-MARGE) < status) && (status < (PA_OOXXO+MARGE))){
+        move = TURN_LITTLE_RIGHT;
+    }
+
+    else if (((PA_OXXOO-MARGE) < status) && (status < (PA_OXXOO+MARGE))){ 
+        move = TURN_LITTLE_LEFT;
+    }
+
+    else if (((PA_OXOOO-MARGE) < status) && (status < (PA_OXOOO+MARGE))){
         move = TURN_LEFT;
     }
 
-    else if ((((PA_XXOOO-MARGE) < status) && (status < (PA_XXOOO+MARGE))) || (((PA_XOOOO-MARGE) < status) && (status < (PA_XOOOO+MARGE)))){
+    else if (((PA_XXOOO-MARGE) < status) && (status < (PA_XXOOO+MARGE))){
+        move = TURN_FAR2_LEFT;
+    }
+
+    else if (((PA_XOOOO-MARGE) < status) && (status < (PA_XOOOO+MARGE))){
         move = TURN_FAR_LEFT;
     }
 

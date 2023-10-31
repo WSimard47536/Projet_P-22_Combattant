@@ -11,13 +11,17 @@
 
 #define PA_LINEFOLLOWER  A2 // valeur de la pin analogique pour le suiveur de ligne
 
-#define TURN_FAR_LEFT -2
-#define TURN_LEFT -1
+#define TURN_FAR_LEFT -4
+#define TURN_FAR2_LEFT -3
+#define TURN_LEFT -2
+#define TURN_LITTLE_LEFT -1
 #define FORWARD 0
-#define TURN_RIGHT 1
-#define TURN_FAR_RIGHT 2
-#define ERROR 3
-#define START 4
+#define TURN_LITTLE_RIGHT 1
+#define TURN_RIGHT 2
+#define TURN_FAR2_RIGHT 3
+#define TURN_FAR_RIGHT 4
+#define ERROR 5
+#define START 6
 
 /*the X and O are switch - see the green lines in the excel*/
 
@@ -30,7 +34,7 @@
 #define PA_OXXOO 613.186
 #define PA_XOOOO 491.04
 #define PA_XXOOO 229.152
-#define PA_XXXXX 0.4092 // ligne de départ
+#define PA_XXXXX 0.4092 // ligne de départ (ligne perpendiculaire au robot)
 
 
 #define MARGE 15
