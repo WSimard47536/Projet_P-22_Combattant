@@ -19,7 +19,7 @@ bool status = 0;
  */
 void CupWhacker_Init()
 {
-    S3003_Innit(1);
+    S3003_Init(1);
     S3003_SetAngle(1,90);
 }
 
