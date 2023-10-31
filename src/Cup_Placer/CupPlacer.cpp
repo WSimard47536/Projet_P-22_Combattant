@@ -3,7 +3,7 @@
 void CupPlacer_Init()
 {
     S3003_Init(SERVO_CUP_PLACER);
-    S3003_SetAngle(SERVO_CUP_PLACER, SERVO_MIN_ANGLE);
+    S3003_SetAngle(SERVO_CUP_PLACER, SERVO_MAX_ANGLE / 2);
 }
 
 void CupPlacer_PlaceCup()

@@ -36,6 +36,5 @@ void S3003_SetAngle(unsigned servoMotorPin, unsigned WantedPosition)
 
 void S3003_setDefault(unsigned servoMotorPin)
 {
-    SERVO_SetAngle(servoMotorPin, SERVO_MIN_ANGLE);
-    SERVO_Disable(servoMotorPin);
+    SERVO_SetAngle(servoMotorPin, SERVO_MAX_ANGLE / 2);
 }

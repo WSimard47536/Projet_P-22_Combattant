@@ -9,6 +9,7 @@
 
 #pragma once
 #include <Arduino.h>
+#include "LibRobus.h"
 
 #define GREEN_PIN 48
 #define RED_PIN 49

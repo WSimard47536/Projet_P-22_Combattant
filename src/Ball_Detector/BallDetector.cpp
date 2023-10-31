@@ -8,8 +8,16 @@ void BallDetector_Init()
 {
 	DC2318_Init(GREEN_PIN, RED_PIN);
 }
+/**
+ * @attention This function should be called as near as possible to the ball.
+ * Also, the mouvement functions should garantee a staight mouvement on the black line, and they must slow down near it. 
+ * 
+*/
+bool 
 
-bool BallDetector_DetectBall(unsigned verificationCount)
+
+
+BallDetector_DetectBall(unsigned verificationCount)
 {
 	BallDetector_Init();
 	// La balle est presente
@@ -29,12 +37,9 @@ bool BallDetector_DetectBall(unsigned verificationCount)
 			// Bien verifie, drop le cup now
 			CupPlacer_PlaceCup();
 			// TODO: maybe remove this delay and the later reset fucntion
-			delay(500);
+			delay(1000);
 			CupPlacer_Reset();
-			// TODO: implement these in a seperate unit with their interfaces
-			// Fonctions pour esquiver le cup
-			// RobusMouvement(LEFT, x)
-			// RobusMouvement(STRAIGHT, x)
+			// TODO: ADD your fonctions here for mouvement
 			return true;
 		}
 
