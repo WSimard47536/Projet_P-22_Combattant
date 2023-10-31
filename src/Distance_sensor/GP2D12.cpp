@@ -34,7 +34,7 @@ void GP2D12_Innit(int pinNumber)
 unsigned short GP2D12_Read(int pinNumber)
 {
 
-// tension lu par l'arduino 10cm = 2.45V environ,40cm = 0.75V, 50cm = 0.62V environ et 80cm 0.4V
+    // tension lu par l'arduino 10cm = 2.45V environ,40cm = 0.75V, 50cm = 0.62V environ et 80cm 0.4V
     
     return (4800/(analogRead(pinNumber)-20));
     
