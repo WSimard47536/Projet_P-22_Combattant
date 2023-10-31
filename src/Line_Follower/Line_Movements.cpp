@@ -31,8 +31,8 @@ void Movements_SetMotorRatio(float ratio)
     float leftRatio = (ratio/2) + 0.5f;
     float rightRatio = -(ratio/2) + 0.5f;
 
-    MOTOR_SetSpeed(LEFT_MOTOR, leftRatio/3);
-    MOTOR_SetSpeed(RIGHT_MOTOR, rightRatio/3);
+    MOTOR_SetSpeed(LEFT_MOTOR, leftRatio/LINE_MOVEMENT_SPEED_DIVIDER);
+    MOTOR_SetSpeed(RIGHT_MOTOR, rightRatio/LINE_MOVEMENT_SPEED_DIVIDER);
 }
 
 /**
