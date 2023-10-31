@@ -14,17 +14,27 @@
 #include "Line_Follower/Line_follower.hpp"
 
 /// @brief The ratio between the right and the left wheel when turning full left
-#define LINE_MOVEMENT_RATIO_TURN_FAR_LEFT -1.0f
+#define LINE_MOVEMENT_RATIO_TURN_FARTHER_LEFT -1.0f
+/// @brief The ratio between the right and the left wheel when turning full left
+#define LINE_MOVEMENT_RATIO_TURN_FAR_LEFT -0.65f
 /// @brief The ratio between the right and the left wheel when turning left
 #define LINE_MOVEMENT_RATIO_TURN_LEFT -0.5f
+/// @brief The ratio between the right and the left wheel when turning left
+#define LINE_MOVEMENT_RATIO_TURN_LITTLE_LEFT -0.25f
 /// @brief The ratio between the right and the left wheel when going forwards
 #define LINE_MOVEMENT_RATIO_FORWARDS 0
 /// @brief The ratio between the right and the left wheel when turning right
+#define LINE_MOVEMENT_RATIO_TURN_LITTLE_RIGHT 0.25f
+/// @brief The ratio between the right and the left wheel when turning right
 #define LINE_MOVEMENT_RATIO_TURN_RIGHT 0.5f
 /// @brief The ratio between the right and the left wheel when turning full right
-#define LINE_MOVEMENT_RATIO_TURN_FAR_RIGHT 1.0f
+#define LINE_MOVEMENT_RATIO_TURN_FAR_RIGHT 0.65f
+/// @brief The ratio between the right and the left wheel when turning full right
+#define LINE_MOVEMENT_RATIO_TURN_FARTHER_RIGHT 1.0f
 /// @brief How much should movements be divided by. If 1, forwards will be 0.5, max turn will be 0,1
-#define LINE_MOVEMENT_SPEED_DIVIDER 2
+#define LINE_MOVEMENT_SPEED_DIVIDER 3
+
+
 
 /**
  * @brief
