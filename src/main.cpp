@@ -5,6 +5,7 @@
 #include "CupWhacker.hpp"
 #include "integrationTesting/ROBUSMovement_test.hpp"
 #include "Ball_Detector/BallDetector.hpp"
+#include "Line_Follower/Line_follower.hpp"
 
 
 
@@ -12,6 +13,9 @@ void setup() {
   BoardInit();
   //ColorDetector_init();
   CupWhacker_Init();
+  /*InitializeProximitySensors();
+  ColorDetector_init();*/
+  LineFollower_Innit(PA_LINEFOLLOWER);
 }
 
 void loop()
@@ -29,6 +33,9 @@ void loop()
     Serial.println(isDetected);
   }
 
+  /*LineFollower_Read(PA_LINEFOLLOWER);*/
+  delay(1200);
+
   /*S3003_SetAngle(1,0);
 
   delay(3000);
@@ -43,6 +50,4 @@ void loop()
   /*ColorDetector_detectColor();
   int color=Color_Detection();
   Serial.println(color);
-  */
-  
 }
