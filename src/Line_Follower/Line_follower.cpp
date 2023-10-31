@@ -54,7 +54,6 @@ int LFP_Read(int LineFollowerPin){
 
 int LineFollower_Read(int LineFollowerPin){
     int status = LFP_Read(LineFollowerPin);
-    Serial.println(status);
     int move = 0;
     
     if (((PA_OOXOO-MARGE) < status) && (status < (PA_OOXOO+MARGE))){ 
@@ -100,6 +99,5 @@ int LineFollower_Read(int LineFollowerPin){
     else{
         move = ERROR;
     }
-    Serial.println(move);
     return move;
 }
