@@ -1,42 +1,51 @@
-/**
- * @file BallDetector.cpp
- * @author LyamBRS (lyam.brs@gmail.com)
- * @brief File of functions used to detect the ball.
- * @version 0.1
- * @date 2023-10-19
- * 
- * @copyright Copyright (c) 2023
- * 
- * @warning USE THE DEFINE HEADER FILE TO PUT YOUR DEFINES.
- */
+
 #include "Ball_Detector/BallDetector.hpp"
+#include "Cup_Placer/CupPlacer.hpp"
+#include "Proximity_sensors/DC2318.hpp"
+#include "Proximity_sensors/InfraRed.hpp"
 
-/**
- * @brief Function that should initialise everything
- * needed for the ball detector to work. Do not manually
- * initialise using pinMode in this function. You must
- * call initializers of other functions.
- */
-void BallDetector_Innit()
+void BallDetector_Init()
 {
-
+	DC2318_Init(GREEN_PIN, RED_PIN);
 }
-
 /**
- * @brief This function should return if a ball is
- * detected or not when called. Use DistanceSensor
- * functions for this. Do not put all the code in
- * this function.
- * @return unsigned char 
- * 0: No ball
- * 1: Ball on the left
- * 2: Ball on the right
- * 3: Ball on both sides (error)
- */
-unsigned char BallDetector_DetectBall()
+ * @attention This function should be called as near as possible to the ball.
+ * Also, the mouvement functions should garantee a staight mouvement on the black line, and they must slow down near it. 
+ * 
+*/
+bool 
+
+
+
+BallDetector_DetectBall(unsigned verificationCount)
 {
+	BallDetector_Init();
+	// La balle est presente
+	if (DC2318_Read(GREEN_PIN, RED_PIN))
+	{
+		// Arrete et faire verificationCount de verifications
+		// TODO: add this 
+		// RobusMouvement_stop();
+		unsigned detectionCount = 0;
+		for (size_t i = 0; i < verificationCount; ++i)
+		{
+			if (DC2318_Read(GREEN_PIN, RED_PIN))
+				++detectionCount;
+		}
+		if (detectionCount == verificationCount)
+		{
+			// Bien verifie, drop le cup now
+			CupPlacer_PlaceCup();
+			// TODO: maybe remove this delay and the later reset fucntion
+			delay(1000);
+			CupPlacer_Reset();
+			// TODO: ADD your fonctions here for mouvement
+			return true;
+		}
 
+		else
+			return false;
+	}
+	else
+		return false;
 }
-
-// I suggest making more functions. You could make one that makes the big number from the smaller number for example.
-// The functions you make should start with BallDetector_. variables as inputs should be lower camelCase.
