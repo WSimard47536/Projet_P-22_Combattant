@@ -5,9 +5,7 @@
 #include "CupWhacker.hpp"
 #include "integrationTesting/ROBUSMovement_test.hpp"
 #include "Ball_Detector/BallDetector.hpp"
-
 #include "Line_Follower/Line_follower.hpp"
-#include "Line_Follower/Line_Movements.hpp"
 
 
 
@@ -27,22 +25,16 @@ void loop()
   //Serial.println(4800/(analogRead(3)-20));
   //CupWhacker_WhackCup();
 
-  /*Serial.println(CupWhacker_main());
+  Serial.println(CupWhacker_main());
   delay(100);
 
   if(ROBUS_IsBumper(0)){
     bool isDetected = BallDetector_DetectBall(2);
     Serial.println(isDetected);
-  }*/
+  }
 
-  //LineFollower_Read(PA_LINEFOLLOWER);
-  /*if (Movements_FollowLine() == STOP)
-  {
-    //ROBUSMovement_stop();
-  }*/
-  Serial.println(Movements_FollowLine());
-  
-  //delay(1200);
+  /*LineFollower_Read(PA_LINEFOLLOWER);*/
+  delay(1200);
 
   /*S3003_SetAngle(1,0);
 
