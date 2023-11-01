@@ -3,6 +3,7 @@
 #include "ROBUSMovement.hpp"
 #include "Colour_Sensor/Color_Detector.hpp"
 #include "Distance_sensor/GP2D12.hpp"
+#include "Line_Follower/Line_follower.hpp"
 
 #define ZONE2_DISTANCE_CM 61.96f
 #define ZONE4_5_DISTANCE_CM 243.84f
@@ -12,7 +13,7 @@
 
 #define ZONE6_MEET_DISTANCE_CM 15.0f
 
-#define ROBOT_RSIDE_BLUE_TO_WALL_DISTANCE_CM (30.48f - DISTANCE_BT_WHEEL) / 2
+#define ROBOT_RSIDE_GREEN_TO_WALL_DISTANCE_CM (60.96f - DISTANCE_BT_WHEEL) / 2
 
 typedef struct
 {
