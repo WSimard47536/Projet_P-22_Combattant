@@ -107,7 +107,7 @@ int Color_Detection()
 
     if (red>green && red>blue)
     {
-        if (green>50)
+        if (clear>150)
         {
             color = YELLOW;
         }
@@ -119,10 +119,11 @@ int Color_Detection()
 
     if (blue>green && blue>red)
     {
-        if (clear> 102)
+        if (clear< 120)
         {
-            color=BLACK;
+           color = RED;
         }
+        
         else
         {
             color = BLUE;
@@ -134,8 +135,9 @@ int Color_Detection()
     {
         if (clear>102)
         {
-            color = BLACK;
+            color = GREEN;
         }
+        
         else
         {
            color = GREEN; 
