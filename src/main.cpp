@@ -25,26 +25,28 @@ void loop()
   //Serial.println(4800/(analogRead(3)-20));
   //CupWhacker_WhackCup();
 
-  Serial.println(CupWhacker_main());
+  /*Serial.println(CupWhacker_main());
   delay(100);
 
   if(ROBUS_IsBumper(0)){
     bool isDetected = BallDetector_DetectBall(2);
     Serial.println(isDetected);
-  }
+  }*/
 
 
   //ROBUSMovement_arcMove_straight(BACKWARD, 30.0);
   //ROBUSMovement_arcMove_turn(chosencolor, );
-  
+
+
+  ROBUSMovement_arcMove_straight(STRAIGHT_RIGHT_TURN, ROBUSMovement_turn_math(88));
+  delay(1000);
 
   /*ROBUSMovement_continuousPID_begin_cm(STRAIGHT_8_FT);
   while(ROBUSMovement_stopRequirementContinuous()){
     ROBUSMovement_momentaryPID_inwhile();
-
     
   }
-  ROBUSMovement_EmergencyStop();
+  ROBUSMovement_EmergencyStop();*/
 
   //ROBUSMovement_arcMove_global(chosencolor, 0, 2, NOT_USED, 20);
 

@@ -23,13 +23,13 @@ void ChallengeSolver_ExecuteAllSteps()
 void ChallengeSolver_ExecuteFirstLap()
 {
     // Turn Right (zone 1)
-    ROBUSMovement_arcMove(0.25f, assignedColor, 90, RIGHT_TURN);
+    ROBUSMovement_arcMove_turn(assignedColor, FORWARD, RIGHT_TURN, 90.0);
 
     // Straight (zone 2)
-    ROBUSMovement_moveStraight(FORWARD, 0.25f, ZONE2_DISTANCE_CM);
+    ROBUSMovement_arcMove_straight(FORWARD, STRAIGHT_2_FT);
 
     // Turn Right (zone 3)
-    ROBUSMovement_arcMove(0.25f, assignedColor, 90, RIGHT_TURN);
+    ROBUSMovement_arcMove_turn(assignedColor, FORWARD, RIGHT_TURN, 90.0);
 
     // Move Straight and Whack the cup (zone 4 - 5)
     ROBUSMovement_continuousPID_begin_cm(STRAIGHT_8_FT);
@@ -87,27 +87,31 @@ void ChallengeSolver_ExecuteFirstLap()
         }
     }*/
     //ROBUSMovement_stop();
+    ROBUSMovement_arcMove_straight(FORWARD, STRAIGHT_8_FT);
 }
 
 void ChallengeSolver_ExecuteSecondLap()
 {
     // Turn Right (zone 1)
-    ROBUSMovement_arcMove(0.25f, GREEN, 90, RIGHT_TURN);
+    ROBUSMovement_arcMove_turn(COLOR_GREEN, FORWARD, RIGHT_TURN, 90.0);
 
     // Straight (zone 2)
-    ROBUSMovement_moveStraight(FORWARD, 0.40f, ZONE2_DISTANCE_CM);
+    ROBUSMovement_arcMove_straight(FORWARD, STRAIGHT_2_FT);
 
     // Turn Right (zone 3)
-    ROBUSMovement_arcMove(0.25f, GREEN, 90, RIGHT_TURN);
+    ROBUSMovement_arcMove_turn(COLOR_GREEN, FORWARD, RIGHT_TURN, 90.0);
 
     // Straight (zone 4 - 5)
-    ROBUSMovement_moveStraight(FORWARD, 0.40f, ZONE4_DISTANCE_CM);
+    ROBUSMovement_arcMove_straight(FORWARD, ZONE4_DISTANCE_CM);
 
     // Turn Right (zone 6)
-    ROBUSMovement_arcMove(0.25f, BLUE, 90, RIGHT_TURN);
+    ROBUSMovement_arcMove_turn(COLOR_BLUE, FORWARD, RIGHT_TURN, 90.0);
 
+    ROBUSMovement_arcMove_straight(FORWARD, ZONE4_DISTANCE_CM);
+
+    
     // Straight (zone 6 - 9)
-    float speedFactor = 0.95f;
+    /*float speedFactor = 0.95f;
     MOTOR_SetSpeed(LEFT_MOTOR,0.40f);
     MOTOR_SetSpeed(RIGHT_MOTOR,0.40f);
     
@@ -123,7 +127,8 @@ void ChallengeSolver_ExecuteSecondLap()
             MOTOR_SetSpeed(LEFT_MOTOR,0.40f * speedFactor);
         }
     }
-    ROBUSMovement_stop();
+    ROBUSMovement_stop();*/
+    ROBUSMovement_arcMove_straight(FORWARD, STRAIGHT_8_FT);
 }
 
 void ChallengerSolver_ExecuteRace()
