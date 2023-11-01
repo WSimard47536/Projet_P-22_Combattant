@@ -37,11 +37,23 @@ void loop()
 
 
   //ROBUSMovement_arcMove_straight(BACKWARD, 30.0);
+  //ROBUSMovement_arcMove_turn(chosencolor, );
+  
+
+  ROBUSMovement_continuousPID_begin_cm(STRAIGHT_8_FT);
+  while(ROBUSMovement_stopRequirementContinuous()){
+    ROBUSMovement_momentaryPID_inwhile();
+
+    
+  }
+  ROBUSMovement_EmergencyStop();
 
   //ROBUSMovement_arcMove_global(chosencolor, 0, 2, NOT_USED, 20);
 
   //ROBUSMovement_arcMove_global(chosencolor, 0, FORWARD, NOT_USED, 20);
-  ROBUSMovement_arcMove_global(COLOR_PURPLE, 0, 2, RIGHT_TURN, 5);
+  
+  
+  //ROBUSMovement_arcMove_global(COLOR_PURPLE, 0, 2, RIGHT_TURN, 5);
 
   
 
@@ -54,7 +66,6 @@ void loop()
   //ROBUSMovement_arcMove_global(chosencolor, 0, NOT_USED, STRAIGHT_2_FT);
   //ROBUSMovement_arcMove_global(chosencolor, 90.0, RIGHT_TURN, NOT_USED);
   //ROBUSMovement_arcMove_global(chosencolor, 0, NOT_USED, STRAIGHT_8_FT);
-  ROBUSMovement_EmergencyStop();
   //ROBUSMovement_stop();
   delay(5000);
 

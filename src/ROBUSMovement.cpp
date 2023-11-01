@@ -402,7 +402,7 @@ void ROBUSMovement_continuousPID_begin_cm(double distance_cm){
 
   double angle = 0.0;
   if (distance_cm < 0) angle = 180.0;
-  ROBUSMovement_trigoMath(angle, 1);
+  ROBUSMovement_trigoMath(angle);
 
   double speedLeft  = currentSpeed*SpeedLeftTrigo;
   double speedRight = currentSpeed*SpeedRightTrigo;
@@ -473,7 +473,6 @@ double speedRight = 0.0;
 double ratio = 0.0;
 
 void ROBUSMovement_arcMove_straight(int direction, double distance_cm){
-
   double offSet = 0.0;
   if (direction == BACKWARD) offSet = 180.0;
 
@@ -482,13 +481,11 @@ void ROBUSMovement_arcMove_straight(int direction, double distance_cm){
 
   //if an arcangle of 0: go straight
   wantedPulse = (ROBUSMovement_moveStraight_math(distance_cm));
-  Serial.println(wantedPulse);
 
   requirement = REQUIREMENT_STRAIGHT_CM;
   
   ROBUSMovement_ArcMove_Init();
   ROBUSMovement_arcMove(requirement);
-  
 }
 
 void ROBUSMovement_arcMove_turn(int color, int direction, int directionTurn, double arcAngle){
@@ -519,6 +516,7 @@ void ROBUSMovement_arcMove_turn(int color, int direction, int directionTurn, dou
   
   ROBUSMovement_ArcMove_Init();
   ROBUSMovement_arcMove(requirement);
+
 }
 
 void ROBUSMovement_ArcMove_Init(){
@@ -543,6 +541,7 @@ void ROBUSMovement_ArcMove_Init(){
 }
 
 void ROBUSMovement_arcMove(int requirement){
+  
 	while(ROBUSMovement_whileStopRequirement(requirement, currentPulseRight, currentPulseLeft)){
     if((millis()-previousInterval_ms)>PID_INTERVAL_MS){
       ROBUSMovement_acceleration();
@@ -561,6 +560,7 @@ void ROBUSMovement_arcMove(int requirement){
       previousInterval_ms = millis();
 	  }
 	}
+  
 }
 
 
