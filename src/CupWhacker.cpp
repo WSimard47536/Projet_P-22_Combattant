@@ -13,6 +13,7 @@
 int track_Color;
 
 bool status = 0;
+int startTime = 0;
 
 /**
  * @brief Sets base values
@@ -37,8 +38,20 @@ void CupWhacker_Reset()
 bool CupWhacker_WhackCup()
 {
     Serial.println("IN WHACKCUP");
-    track_Color = YELLOW;
+    track_Color = Color_Detection();
+    //track_Color = YELLOW;
     //track_Color = Color_Detection();
+    
+    /*if(GP2D12_Read(3) < DISTANCE_CAPTAGE){
+        S3003_SetAngle(1,0);
+        return 1;
+    }
+
+    if(GP2D12_Read(0) < DISTANCE_CAPTAGE){
+        S3003_SetAngle(1,180);
+        return 1;
+    }*/
+
     if (track_Color == YELLOW){
         if(GP2D12_Read(3) < DISTANCE_CAPTAGE){
             S3003_SetAngle(1,0);
@@ -57,7 +70,6 @@ bool CupWhacker_WhackCup()
 }
 
 bool CupWhacker_main(){
-    int startTime = 0;
     switch (status){
         case 0: 
         status = CupWhacker_WhackCup();
