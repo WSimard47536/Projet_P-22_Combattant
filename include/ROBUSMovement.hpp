@@ -1,101 +1,119 @@
 #pragma once
 #include <LibRobus.h>
-#include "ROBUSAcceleration.hpp"
-#define CONSTANTE_RATIO 925
 
-#define FORWARD 1.0f
-#define BACKWARD -1.0f
+#define CIRCUMFERENCE_WHEEL (3.1416 * DIAMETER_WHEEL)
+#define DISTANCE_BT_WHEEL 18.6f // diamètre entre les deux roues en cm  //18.6f A et 19.2f B
+#define DIAMETER_WHEEL 7.7f     // diametre de la roue (cm)
 
-//#define LEFT_TURN -1.0f
-//#define RIGHT_TURN 1.0f
-
-#define LEFT_TURN 1.0f
-#define RIGHT_TURN -1.0f
-
-#define FULL_ROTATIONS_PULSES 3200 // 
-#define DISTANCE_BT_WHEEL 0.196f // rayon entre les deux roues en metre 
-#define DIAMETER_WHEEL 0.076f // diametre de la roue (m)
-
-#define MAGIC_lEFT 0.93
-#define MAGIC_RIGHT 0.94
-
-//0.9597
-
-#define LARGE_CIRCUMFERENCE_ROBOT (3.1416*DISTANCE_BT_WHEEL*3)
-#define SMALL_CIRCUMFERENCE_ROBOT (3.1416*DISTANCE_BT_WHEEL)
-
-#define CIRCUMFERENCE_WHEEL (3.1416*DIAMETER_WHEEL)
-
-
+// ROBUS CONSTANTS
 #define LEFT_MOTOR 0
 #define RIGHT_MOTOR 1
 #define LEFT_ENCODER 0
 #define RIGHT_ENCODER 1
 
-#define DIAMETER 7.60f
-#define CIRCUMFERENCE 23.87f
-#define FULL_ROTATIONS_PULSES 3200.00f
+// MOVEMENT CONSTANTS
+// #define FORWARD 1.0f
+#define FORWARD 0
+#define BACKWARD -1.0f
+#define RIGHT_TURN 1.0f
+#define LEFT_TURN -1.0f
 
-void ROBUSMovement_adjustDirection(float speed_pct, int delay_ms, float distanceRatio, float totalDistance);
-void ROBUSMovement_moveStraight(float direction, float speed_pct, float distance_cm);
-void ROBUSMovement_turn(float direction, float speed_pct, int turnRadius_degreesPerWheelCycle, int turnDistance_degrees);
+// PID CONSTANTS
+#define PID_INTERVAL_MS 25.0l // 25
 
-//float PID_test(float Ubias, float proportional_const, float integral_const, float derivative_const, float set_point, float process_variable, float time, float* previousDerivativeError, float* errorSum);
-//float PID_calibration_test(float Ubias, float* Ku, float set_point, float process_variable);
+#define KU 0.004f // 0.03
+#define TU 40.0f  // 50.0f STRAIGHT
 
-//void ROBUSMovement_test(float direction, float speed_pct, int distance, int degrees);
+#define TI (TU / 2.0f)
+#define TD (TU / 8.0f)
+#define KP (KU / 2.5f)
+#define KI (KU / TI)
+#define KD 0.0005 //(KU*TD) to be added in later after more testing.
 
-//float ROBUSMovement_straight_math(float distance, float wheel);
-float ROBUSMovement_turnOnSelf_math(float distance, float wheel, int degrees);
+#define STATUS_STOPPED 0
+#define STATUS_ACCELERATING 1
+#define STATUS_DECELERATING 2
+#define STATUS_MAXSPEED 3
+#define STATUS_EMERGENCYSTOP 4
 
-void ROBUSMovement_straight(float direction, float speed_pct, int distance);
-void ROBUSMovement_turnOnSelf(float direction, float speed_pct, int turnDistance_degrees);
-float PID(float Kc, float Ti, float set_point, float process_variable, int nbr_cycle, float start_time, float current_time, float Ubias, float* erreur_integrale);
+#define MAXSPEED 0.75
+#define STOPSPEED 0.0
 
+#define ARC_PULSE_DIFFERENCE 3865
 
+#define COLOR_GREEN 1
+#define COLOR_BLUE 2
+#define COLOR_YELLOW 3
+#define COLOR_PURPLE 4
 
+#define THETA_GREEN 11
+#define THETA_YELLOW 6.8
+#define THETA_BLUE 18
+#define THETA_SMALLRADIUS 25
+
+#define DIRECTION_FORWARD 45
+#define DIRECTION_BACKWARD 135
+
+#define REQUIREMENT_TURN 0
+#define REQUIREMENT_STRAIGHT_CM 1
+
+#define NOT_USED 0
+
+#define STRAIGHT_8_FT 243.84
+#define STRAIGHT_2_FT 53.34 // 60.96cm is too long so 1.75ft
+
+// FUNCTIONS
 
 void ROBUSMovement_stop();
 
+void ROBUSMovement_resetParameters();
 
-//hpp de l acceleration
+void ROBUSMovement_initMovement();
 
+float ROBUSMovement_turnOnSelf_math(int degrees);
 
-/**
- * @brief 
- * Define that sets at which speed the robot starts.
- * This cannot be 0 because otherwise the robot wont ever move.
- */
-#define START_SPEED_OFFSET 0.05
+float ROBUSMovement_moveStraight_math(int distance_cm);
 
-/**
- * @brief define that defines at which rotation
- * count should the ratio of speed reach the maximum
- * speed of 1. By default, is set to 10000 encoder turns
- * or 1 meters in distance.
- */
-#define MAX_SPEED_AT_THIS_DISTANCE 10000
+float PID(float baseValue, float proportional, float integral, float derivative, float currentValue, float wantedValue, float *errorSum, float *previousValue);
 
-/**
- * @brief This function's use is to calculate the wanted speed
- * factor depending on how much distance is left to move to
- * reach its wanted destination. This allows the robot to perform
- * an acceleration when starting its movement and a deacceleration
- * when its nearing the end of its distance.
- * 
- * This is important to make the robot go faster than instant
- * acceleration that would otherwise cause slip and potential
- * drifting.
- * @param distanceLeft 
- * a ratio from 0 to 1 that indicates how close the robot is
- * to reaching its destination.
- * @param totalDistance
- * this parameter is used to tune the acceleration depending on the
- * total distance there is to do. If the distance is too short,
- * the acceleration would be instant and if its too long, it would
- * simply be super slow. This should theorically base the speed itself.
- * @param maximumSpeed 
- * a ratio from 0 to 1 that indicates how fast the wheel should get.
- * @return float 
- */
-float ROBUS_GetSpeedFactorFromCurrentPosition(float distanceLeft, float totalDistance, float maximumSpeed);
+void ROBUSMovement_moveStraight(float direction, float speed_pct, float distance_cm);
+
+void ROBUSMovement_turnOnSelf(float direction, float speed_pct, float degrees);
+
+// ARC FUNCTIONS
+
+void ROBUSMovement_trigoMath(double angle, int turnDirection);
+
+void ROBUSMovement_acceleration(double currentSpeed);
+
+void ROBUSMovement_arcPulse(double arcangle);
+
+void ROBUSMovement_arcMove(double speed_pct, int color, int arcangle, int direction);
+
+void ROBUSMovement_arcMove_global(int color, double arcangle, int direction, int turnDirection, double distance_cm);
+
+void ROBUSMovement_EmergencyStop();
+
+bool ROBUSMovement_whileStopRequirement(int requirement, double currentPulseRight, double currentPulseLeft);
+
+void ROBUSMovement_momentaryPID_inwhile();
+
+// Continuous movement
+
+bool ROBUSMovement_stopRequirementContinuous();
+
+void ROBUSMovement_continuousPID_begin_cm(double distance_cm);
+
+void ROBUSMovement_continuousPID_begin();
+
+bool ROBUSMovement_stopRequirementContinuous();
+
+/// TEST
+
+void ROBUSMovement_arcMove_straight(int direction, double distance_cm);
+void ROBUSMovement_arcMove_turn(int color, int direction, int directionTurn, double arcAngle);
+void ROBUSMovement_ArcMove_Init();
+void ROBUSMovement_arcMove(int requirement);
+
+void ROBUSMovement_turnOnSelf_deg(float direction, float speed_pct, float degrees);
+void ROBUSMovement_turnOnSelf_cedric(float direction, float speed_pct, int turn_degrees); // à revoir
