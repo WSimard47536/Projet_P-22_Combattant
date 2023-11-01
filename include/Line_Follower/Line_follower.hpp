@@ -22,9 +22,11 @@
 #define TURN_FAR_RIGHT 4
 #define ERROR 5
 #define START 6
+#define STOP 7
 
 /*the X and O are switch - see the green lines in the excel*/
 
+#define PA_OOOOO 1010.724
 #define PA_OOOOX 980.034
 #define PA_OOOXO 947.298
 #define PA_OOOXX 914.562
