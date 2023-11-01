@@ -25,13 +25,13 @@ void loop()
   //Serial.println(4800/(analogRead(3)-20));
   //CupWhacker_WhackCup();
 
-  Serial.println(CupWhacker_main());
+  /*Serial.println(CupWhacker_main());
   delay(100);
 
   if(ROBUS_IsBumper(0)){
     bool isDetected = BallDetector_DetectBall(2);
     Serial.println(isDetected);
-  }
+  }*/
 
 
   //ROBUSMovement_arcMove_straight(BACKWARD, 30.0);
@@ -41,10 +41,11 @@ void loop()
   ROBUSMovement_continuousPID_begin_cm(STRAIGHT_8_FT);
   while(ROBUSMovement_stopRequirementContinuous()){
     ROBUSMovement_momentaryPID_inwhile();
-
+    CupWhacker_main();
     
   }
   ROBUSMovement_EmergencyStop();
+  delay(1000);
 
   //ROBUSMovement_arcMove_global(chosencolor, 0, 2, NOT_USED, 20);
 
@@ -65,7 +66,6 @@ void loop()
   //ROBUSMovement_arcMove_global(chosencolor, 90.0, RIGHT_TURN, NOT_USED);
   //ROBUSMovement_arcMove_global(chosencolor, 0, NOT_USED, STRAIGHT_8_FT);
   //ROBUSMovement_stop();
-  delay(5000);
 
   /*S3003_SetAngle(1,0);
 

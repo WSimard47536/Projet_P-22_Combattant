@@ -124,11 +124,6 @@ void ROBUSMovement_trigoMath(double angle)
   angle = (angle+DIRECTION_FORWARD) * PI / 180.0;
   SpeedLeftTrigo  = sin(angle);
   SpeedRightTrigo = cos(angle);
-
-  Serial.print("leftTrigo : ");
-  Serial.println(SpeedLeftTrigo);
-  Serial.print("rightTrigo : ");
-  Serial.println(SpeedRightTrigo);
 }
 
 /**
@@ -842,35 +837,6 @@ void ROBUSMovement_turnOnSelf(float direction, float speed_pct, float degrees)
 
 ///////////////////////
 
-double SpeedLeftTrigo  = 0.0;
-double SpeedRightTrigo = 0.0;
-
-int speedStatus = STATUS_STOPPED;
-
-double wantedPulseDiff = 0;
-
-double currentSpeed = 0;
-
-
-
-void ROBUSMovement_trigoMath(double angle, int direction)
-{
-  float arc_R = 0.0f;
-  float arc_L = 0.0f;
-  float colorRadius = 0.0f;
-  if (color == 1) {//GREEN
-    colorRadius = 45.72f;
-  } 
-  else if (color == 3){ //YELLOW
-    colorRadius = 76.20f;
-  }
-
-  arc_R = colorRadius-(DISTANCE_BT_WHEEL/2);
-  arc_L = colorRadius+(DISTANCE_BT_WHEEL/2);
-
-  return arc_R, arc_L;
-}
-*/
 /**
  * @brief Basic math allowing to return the number
  * of pulses needed to reach the desired distance
@@ -1006,7 +972,7 @@ void ROBUSMovement_arcMoveTEST(int color, int arcangle, int direction){
   }
   ROBUSMovement_EmergencyStop();
 
-}
+}*/
 
 
 

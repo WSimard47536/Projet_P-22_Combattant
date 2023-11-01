@@ -32,7 +32,16 @@ void ChallengeSolver_ExecuteFirstLap()
     ROBUSMovement_arcMove(0.25f, assignedColor, 90, RIGHT_TURN);
 
     // Move Straight and Whack the cup (zone 4 - 5)
-    ROBUSMovement_moveStraight(FORWARD, 0.25f, ZONE4_5_DISTANCE_CM); // MESURER LA DISTANCE SUR LE PARCOURS
+    ROBUSMovement_continuousPID_begin_cm(STRAIGHT_8_FT);
+    while(ROBUSMovement_stopRequirementContinuous()){
+        ROBUSMovement_momentaryPID_inwhile();
+        CupWhacker_main();
+    }
+    ROBUSMovement_EmergencyStop();
+
+    //METTRE CODE POUR "SUIVEUR DE LIGNE"
+
+    /*ROBUSMovement_moveStraight(FORWARD, 0.25f, ZONE4_5_DISTANCE_CM); // MESURER LA DISTANCE SUR LE PARCOURS
 
     // Turn to create intersection point with black line (zone 6)
     if (assignedColor == GREEN)
@@ -42,10 +51,10 @@ void ChallengeSolver_ExecuteFirstLap()
     else 
     {
         ROBUSMovement_turnOnSelf(RIGHT_TURN, 0.25f, 25.0f);
-    }
+    }*/
 
     // Go forward until center line follower detects line (zone 6)
-    ROBUSMovement_moveStraight(FORWARD, 0.25f, ZONE6_MEET_DISTANCE_CM);
+    //ROBUSMovement_moveStraight(FORWARD, 0.25f, ZONE6_MEET_DISTANCE_CM);
 
     // Follow line until ball is found (zone 6 - 7 - 8)
     // SUIVRE LA LIGNE
@@ -56,7 +65,8 @@ void ChallengeSolver_ExecuteFirstLap()
     // Continuer de suivre la ligne jusqu'à la fin
 
     // Go to start with jump (zone 9 - 0)
-    float speedFactor = 0.95f;
+    
+    /*float speedFactor = 0.95f;
     MOTOR_SetSpeed(LEFT_MOTOR, 0.40f);
     MOTOR_SetSpeed(RIGHT_MOTOR, 0.40f);
     
@@ -75,8 +85,8 @@ void ChallengeSolver_ExecuteFirstLap()
         {
             break;
         }
-    }
-    ROBUSMovement_stop();
+    }*/
+    //ROBUSMovement_stop();
 }
 
 void ChallengeSolver_ExecuteSecondLap()

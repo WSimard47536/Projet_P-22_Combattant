@@ -84,6 +84,7 @@ void ROBUSMovement_moveStraight(float direction, float speed_pct, float distance
 
 void ROBUSMovement_turnOnSelf(float direction, float speed_pct, float degrees);
 
+void ROBUSMovement_EmergencyStop();
 //ARC FUNCTIONS
 
 void ROBUSMovement_trigoMath(double angle, int turnDirection);
