@@ -95,6 +95,10 @@ int LineFollower_Read(int LineFollowerPin){
     else if ((0 < status) && (status < PA_XXXXX+MARGE)){
         move = START;
     }
+
+    else if ((PA_OOOOO - MARGE) < status && status < (PA_OOOOO + MARGE)){
+        move = STOP;
+    }
         
     else{
         move = ERROR;
