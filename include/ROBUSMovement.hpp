@@ -38,14 +38,32 @@
 #define MAXSPEED 0.75
 #define STOPSPEED 0.0
 
-#define ARC_PULSE_DIFFERENCE 3865
+#define ARC_PULSE_DIFFERENCE 3865 
 
 #define COLOR_GREEN 1
 #define COLOR_BLUE 2
 #define COLOR_YELLOW 3
+#define COLOR_PURPLE 4
 
-#define THETA_GREEN 11
-#define THETA_YELLOW 5.5
+#define THETA_GREEN  11
+#define THETA_YELLOW 6.8
+#define THETA_BLUE   18
+#define THETA_PURPLE 20
+
+#define DIRECTION_FORWARD 45
+#define DIRECTION_BACKWARD 135
+
+#define REQUIREMENT_TURN 0
+#define REQUIREMENT_STRAIGHT_CM 1
+
+#define NOT_USED 0
+
+#define STRAIGHT_8_FT 243.84 
+#define STRAIGHT_2_FT 53.34  //60.96cm is too long so 1.75ft
+
+#define STRAIGHT_DIAG_LINE_1 85
+#define STRAIGHT_LINE 61
+#define STRAIGHT_DIAG_LINE_2 86
 
 
 //FUNCTIONS
@@ -68,7 +86,7 @@ void ROBUSMovement_turnOnSelf(float direction, float speed_pct, float degrees);
 
 //ARC FUNCTIONS
 
-void ROBUSMovement_trigoMath(double angle, int direction);
+void ROBUSMovement_trigoMath(double angle, int turnDirection);
 
 void ROBUSMovement_acceleration(double currentSpeed);
 
@@ -76,7 +94,28 @@ void ROBUSMovement_arcPulse(int arcangle);
 
 void ROBUSMovement_arcMove(double speed_pct, int color, int arcangle, int direction);
 
+void ROBUSMovement_arcMove_global(int color, double arcangle, int direction, int turnDirection, double distance_cm);
 
 void ROBUSMovement_arcMoveTEST(int color, int arcangle, int direction);
 
-void ROBUSMovement_EmergencyStop();
+bool ROBUSMovement_whileStopRequirement(int requirement, double currentPulseRight, double currentPulseLeft);
+
+void ROBUSMovement_momentaryPID_inwhile();
+
+//Continuous movement
+
+bool ROBUSMovement_stopRequirementContinuous();
+
+void ROBUSMovement_continuousPID_begin_cm(double distance_cm);
+
+void ROBUSMovement_continuousPID_begin();
+
+bool ROBUSMovement_stopRequirementContinuous();
+
+
+///TEST
+
+void ROBUSMovement_arcMove_straight(int direction, double distance_cm);
+void ROBUSMovement_arcMove_turn(int color, int direction, int directionTurn, double arcAngle);
+void ROBUSMovement_ArcMove_Init();
+void ROBUSMovement_arcMove(int requirement);

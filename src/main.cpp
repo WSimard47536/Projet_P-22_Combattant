@@ -7,7 +7,7 @@
 #include "Ball_Detector/BallDetector.hpp"
 #include "Line_Follower/Line_follower.hpp"
 
-
+int chosencolor = COLOR_GREEN;
 
 void setup() {
   BoardInit();
@@ -33,8 +33,28 @@ void loop()
     Serial.println(isDetected);
   }
 
-  /*LineFollower_Read(PA_LINEFOLLOWER);*/
-  delay(1200);
+
+  //ROBUSMovement_arcMove_straight(BACKWARD, 30.0);
+
+  //ROBUSMovement_arcMove_global(chosencolor, 0, 2, NOT_USED, 20);
+
+  //ROBUSMovement_arcMove_global(chosencolor, 0, FORWARD, NOT_USED, 20);
+  ROBUSMovement_arcMove_global(COLOR_PURPLE, 0, 2, RIGHT_TURN, 5);
+
+  
+
+  //MOTOR_SetSpeed(LEFT_MOTOR, 0.5);
+  //ROBUSMovement_arcMove_global(chosencolor, 90.0, RIGHT_TURN, NOT_USED);
+  //ROBUSMovement_arcMove_global(chosencolor, 0, NOT_USED, STRAIGHT_2_FT);
+  //ROBUSMovement_arcMove_global(chosencolor, 90.0, RIGHT_TURN, NOT_USED);
+  //ROBUSMovement_arcMove_global(chosencolor, 0, NOT_USED, STRAIGHT_8_FT);
+  //ROBUSMovement_arcMove_global(chosencolor, 90.0, RIGHT_TURN, NOT_USED);
+  //ROBUSMovement_arcMove_global(chosencolor, 0, NOT_USED, STRAIGHT_2_FT);
+  //ROBUSMovement_arcMove_global(chosencolor, 90.0, RIGHT_TURN, NOT_USED);
+  //ROBUSMovement_arcMove_global(chosencolor, 0, NOT_USED, STRAIGHT_8_FT);
+  ROBUSMovement_EmergencyStop();
+  //ROBUSMovement_stop();
+  delay(5000);
 
   /*S3003_SetAngle(1,0);
 
