@@ -12,8 +12,7 @@
 #define RIGHT_ENCODER 1
 
 // MOVEMENT CONSTANTS
-//#define FORWARD 1.0f
-#define FORWARD 0
+#define FORWARD 1.0f
 #define BACKWARD -1.0f
 #define RIGHT_TURN 1.0f
 #define LEFT_TURN -1.0f
@@ -91,13 +90,13 @@ void ROBUSMovement_trigoMath(double angle, int turnDirection);
 
 void ROBUSMovement_acceleration(double currentSpeed);
 
-void ROBUSMovement_arcPulse(double arcangle);
+void ROBUSMovement_arcPulse(int arcangle);
 
 void ROBUSMovement_arcMove(double speed_pct, int color, int arcangle, int direction);
 
 void ROBUSMovement_arcMove_global(int color, double arcangle, int direction, int turnDirection, double distance_cm);
 
-void ROBUSMovement_EmergencyStop();
+void ROBUSMovement_arcMoveTEST(int color, int arcangle, int direction);
 
 bool ROBUSMovement_whileStopRequirement(int requirement, double currentPulseRight, double currentPulseLeft);
 

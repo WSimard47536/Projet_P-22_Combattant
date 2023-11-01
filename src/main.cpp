@@ -5,9 +5,7 @@
 #include "CupWhacker.hpp"
 #include "integrationTesting/ROBUSMovement_test.hpp"
 #include "Ball_Detector/BallDetector.hpp"
-
 #include "Line_Follower/Line_follower.hpp"
-#include "Line_Follower/Line_Movements.hpp"
 
 int chosencolor = COLOR_GREEN;
 
@@ -27,13 +25,13 @@ void loop()
   //Serial.println(4800/(analogRead(3)-20));
   //CupWhacker_WhackCup();
 
-  /*Serial.println(CupWhacker_main());
+  Serial.println(CupWhacker_main());
   delay(100);
 
   if(ROBUS_IsBumper(0)){
     bool isDetected = BallDetector_DetectBall(2);
     Serial.println(isDetected);
-  }*/
+  }
 
 
   //ROBUSMovement_arcMove_straight(BACKWARD, 30.0);

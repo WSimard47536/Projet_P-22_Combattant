@@ -61,7 +61,7 @@ void Movements_SetMotorRatio(float ratio)
  * @return false:
  * No line is found. by the line following function.
  */
-int Movements_FollowLine()
+bool Movements_FollowLine()
 {
     /**
      * @brief Saves the value of the line in
@@ -79,11 +79,10 @@ int Movements_FollowLine()
         // Stop the robot just to be sure.
         //MOTOR_SetSpeed(LEFT_MOTOR, 0);
         //MOTOR_SetSpeed(RIGHT_MOTOR, 0);
-        return -5;
+        return false;
     }
 
     // CHECK // Did the function last set the motors to this value?
-
     if (previouslySeenLine != lines)
     {
         //previouslySeenLine = lines;
@@ -93,65 +92,62 @@ int Movements_FollowLine()
             case(TURN_FAR_LEFT):
                 //Serial.println("TURN_FAR_LEFT");
                 Movements_SetMotorRatio(LINE_MOVEMENT_RATIO_TURN_FARTHER_LEFT);
-                break;
+                return true;
 
             case(TURN_FAR2_LEFT):
                 //Serial.println("TURN_FAR2_LEFT");
                 Movements_SetMotorRatio(LINE_MOVEMENT_RATIO_TURN_FAR_LEFT);
-                break;
+                return true;
 
             case(TURN_LEFT):
                 //Serial.println("TURN_LEFT");
                 Movements_SetMotorRatio(LINE_MOVEMENT_RATIO_TURN_LEFT);
-                break;
+                return true;
 
             case(TURN_LITTLE_LEFT):
                 //Serial.println("TURN_LITTLE_LEFT");
                 Movements_SetMotorRatio(LINE_MOVEMENT_RATIO_TURN_LITTLE_LEFT);
-                break;
+                return true;
 
             case(FORWARD):
                 //Serial.println("FORWARD");
                 Movements_SetMotorRatio(LINE_MOVEMENT_RATIO_FORWARDS);
-                break;
+                return true;
 
             case(TURN_LITTLE_RIGHT):
                 //Serial.println("TURN_LITTLE_RIGHT");
                 Movements_SetMotorRatio(LINE_MOVEMENT_RATIO_TURN_LITTLE_RIGHT);
-                break;
+                return true;
 
             case(TURN_RIGHT):
                 //Serial.println("TURN_RIGHT");
                 Movements_SetMotorRatio(LINE_MOVEMENT_RATIO_TURN_RIGHT);
-                break;
+                return true;
 
             case(TURN_FAR2_RIGHT):
                 //Serial.println("TURN_FAR2_RIGHT");
                 Movements_SetMotorRatio(LINE_MOVEMENT_RATIO_TURN_FAR_RIGHT);
-                break;
+                return true;
 
             case(TURN_FAR_RIGHT):
                 //Serial.println("TURN_FAR_RIGHT");
                 Movements_SetMotorRatio(LINE_MOVEMENT_RATIO_TURN_FARTHER_RIGHT);
-                break;
-            
-            case(STOP):
-                break;
+                return true;
 
             case(ERROR):
                 //Serial.println("ERROR");
                 // Should never reach here.
-            break;
+            return false;
 
             default:
                 // There is a serious problem if the program can go here
-            break;
+            return false;
         }
     }
     else
     {
         // The robot did see a line, but the motors were already that value before.
-        
+        return true;
     }
-    return lines;
+    return false;
 }
