@@ -5,7 +5,9 @@
 #include "CupWhacker.hpp"
 #include "integrationTesting/ROBUSMovement_test.hpp"
 #include "Ball_Detector/BallDetector.hpp"
+
 #include "Line_Follower/Line_follower.hpp"
+#include "Line_Follower/Line_Movements.hpp"
 
 int chosencolor = COLOR_GREEN;
 

@@ -71,4 +71,4 @@ void Movements_SetMotorRatio(float ratio);
  * followed.
  * @return false
  */
-bool Movements_FollowLine();
+int Movements_FollowLine();
