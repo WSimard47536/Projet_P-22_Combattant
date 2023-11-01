@@ -44,10 +44,12 @@
 #define COLOR_GREEN 1
 #define COLOR_BLUE 2
 #define COLOR_YELLOW 3
+#define COLOR_PURPLE 4
 
 #define THETA_GREEN  11
 #define THETA_YELLOW 6.8
 #define THETA_BLUE   18
+#define THETA_PURPLE 20
 
 #define DIRECTION_FORWARD 45
 #define DIRECTION_BACKWARD 135
@@ -59,6 +61,10 @@
 
 #define STRAIGHT_8_FT 243.84 
 #define STRAIGHT_2_FT 53.34  //60.96cm is too long so 1.75ft
+
+#define STRAIGHT_DIAG_LINE_1 85
+#define STRAIGHT_LINE 61
+#define STRAIGHT_DIAG_LINE_2 86
 
 
 //FUNCTIONS
