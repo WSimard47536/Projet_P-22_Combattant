@@ -16,6 +16,8 @@
 #define BACKWARD -1.0f
 #define RIGHT_TURN 1.0f
 #define LEFT_TURN -1.0f
+#define STRAIGHT_RIGHT_TURN 2
+#define STRAIGHT_LEFT_TURN 3
 
 // PID CONSTANTS
 #define PID_INTERVAL_MS 25.0l //25
@@ -70,7 +72,12 @@
 
 void ROBUSMovement_stop();
 
+void ROBUSMovement_EmergencyStop();
+
+
+
 void ROBUSMovement_resetParameters();
+
 
 void ROBUSMovement_initMovement();
 
@@ -114,6 +121,8 @@ bool ROBUSMovement_stopRequirementContinuous();
 
 
 ///TEST
+
+float ROBUSMovement_turn_math(double degrees);
 
 void ROBUSMovement_arcMove_straight(int direction, double distance_cm);
 void ROBUSMovement_arcMove_turn(int color, int direction, int directionTurn, double arcAngle);

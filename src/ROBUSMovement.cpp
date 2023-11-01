@@ -124,11 +124,6 @@ void ROBUSMovement_trigoMath(double angle)
   angle = (angle+DIRECTION_FORWARD) * PI / 180.0;
   SpeedLeftTrigo  = sin(angle);
   SpeedRightTrigo = cos(angle);
-
-  Serial.print("leftTrigo : ");
-  Serial.println(SpeedLeftTrigo);
-  Serial.print("rightTrigo : ");
-  Serial.println(SpeedRightTrigo);
 }
 
 /**
@@ -466,6 +461,13 @@ bool ROBUSMovement_stopRequirementContinuous(){
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////////////
 
+float ROBUSMovement_turn_math(double degrees)
+{
+  float pulse = DISTANCE_BT_WHEEL * PI * (float)degrees;
+  pulse = pulse / (360.0f);
+  return pulse;
+}
+
 int requirement = 0;
 double theta = 0.0;
 double speedLeft = 0.0;
@@ -475,11 +477,11 @@ double ratio = 0.0;
 void ROBUSMovement_arcMove_straight(int direction, double distance_cm){
   double offSet = 0.0;
   if (direction == BACKWARD) offSet = 180.0;
-
+  if (direction == STRAIGHT_LEFT_TURN) offSet = 90.0;
+  if (direction == STRAIGHT_RIGHT_TURN) offSet = 270.0;
   requirement = 0;
   theta = offSet;
 
-  //if an arcangle of 0: go straight
   wantedPulse = (ROBUSMovement_moveStraight_math(distance_cm));
 
   requirement = REQUIREMENT_STRAIGHT_CM;
@@ -524,7 +526,7 @@ void ROBUSMovement_ArcMove_Init(){
 
   speedLeft  = currentSpeed*SpeedLeftTrigo;
   speedRight = currentSpeed*SpeedRightTrigo;
-  ratio = SpeedLeftTrigo/SpeedRightTrigo;
+  ratio = abs(SpeedLeftTrigo)/abs(SpeedRightTrigo);
   
   speedStatus = STATUS_ACCELERATING;
 
@@ -654,7 +656,7 @@ void ROBUSMovement_moveStraight(float direction, float speed_pct, float distance
 {
   float wantedPulse = (ROBUSMovement_moveStraight_math(distance_cm));
   //float wantedPulse = 3200;
-  Serial.println(wantedPulse);
+  //Serial.println(wantedPulse);
 
   speed_pct = direction*speed_pct;
   float newSpeed = speed_pct;
@@ -788,7 +790,7 @@ void ROBUSMovement_arcMove(double speed_pct, int color, int arcangle, int direct
  * the desired distance.
  * @return void 
  */
-void ROBUSMovement_turnOnSelf(float direction, float speed_pct, float degrees)
+/*void ROBUSMovement_turnOnSelf(float direction, float speed_pct, float degrees)
 {
   float wantedPulse = ROBUSMovement_turnOnSelf_math(degrees);
   Serial.println(wantedPulse);
@@ -831,46 +833,11 @@ void ROBUSMovement_turnOnSelf(float direction, float speed_pct, float degrees)
   }
   ROBUSMovement_stop();
   
-  Serial.print("RIGHT :");
-  Serial.println(currentPulseRight);
-  Serial.print("LEFT :");
-  Serial.println(currentPulseLeft);
-  Serial.print("error sum :");
-  Serial.println(errorSumTurn);
   
-}
+}*/
 
 ///////////////////////
 
-double SpeedLeftTrigo  = 0.0;
-double SpeedRightTrigo = 0.0;
-
-int speedStatus = STATUS_STOPPED;
-
-double wantedPulseDiff = 0;
-
-double currentSpeed = 0;
-
-
-
-void ROBUSMovement_trigoMath(double angle, int direction)
-{
-  float arc_R = 0.0f;
-  float arc_L = 0.0f;
-  float colorRadius = 0.0f;
-  if (color == 1) {//GREEN
-    colorRadius = 45.72f;
-  } 
-  else if (color == 3){ //YELLOW
-    colorRadius = 76.20f;
-  }
-
-  arc_R = colorRadius-(DISTANCE_BT_WHEEL/2);
-  arc_L = colorRadius+(DISTANCE_BT_WHEEL/2);
-
-  return arc_R, arc_L;
-}
-*/
 /**
  * @brief Basic math allowing to return the number
  * of pulses needed to reach the desired distance
@@ -1008,5 +975,5 @@ void ROBUSMovement_arcMoveTEST(int color, int arcangle, int direction){
 
 }
 
-
+*/
 
