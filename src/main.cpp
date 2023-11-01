@@ -9,7 +9,7 @@
 #include "Line_Follower/Line_follower.hpp"
 #include "Line_Follower/Line_Movements.hpp"
 
-int chosencolor = COLOR_YELLOW;
+
 
 void setup() {
   BoardInit();
@@ -35,16 +35,14 @@ void loop()
     Serial.println(isDetected);
   }*/
 
-  ROBUSMovement_arcMoveTEST(chosencolor, 90.0, RIGHT_TURN, NOT_USED);
-  ROBUSMovement_arcMoveTEST(chosencolor, 0, NOT_USED, STRAIGHT_2_FT);
-  ROBUSMovement_arcMoveTEST(chosencolor, 90.0, RIGHT_TURN, NOT_USED);
-  ROBUSMovement_arcMoveTEST(chosencolor, 0, NOT_USED, STRAIGHT_8_FT);
-  ROBUSMovement_arcMoveTEST(chosencolor, 90.0, RIGHT_TURN, NOT_USED);
-  ROBUSMovement_arcMoveTEST(chosencolor, 0, NOT_USED, STRAIGHT_2_FT);
-  ROBUSMovement_arcMoveTEST(chosencolor, 90.0, RIGHT_TURN, NOT_USED);
-  ROBUSMovement_arcMoveTEST(chosencolor, 0, NOT_USED, STRAIGHT_8_FT);
-  ROBUSMovement_EmergencyStop();
-  delay(5000);
+  //LineFollower_Read(PA_LINEFOLLOWER);
+  /*if (Movements_FollowLine() == STOP)
+  {
+    //ROBUSMovement_stop();
+  }*/
+  Serial.println(Movements_FollowLine());
+  
+  //delay(1200);
 
   /*S3003_SetAngle(1,0);
 

@@ -223,7 +223,7 @@ float PID(float baseValue, float proportional, float integral, float derivative,
  * the desired distance.
  * @return void 
  */
-void ROBUSMovement_moveStraight_cm(float direction, float speed_pct, float distance_cm)
+void ROBUSMovement_moveStraight(float direction, float speed_pct, float distance_cm)
 {
   
 
@@ -279,12 +279,12 @@ void ROBUSMovement_moveStraight_cm(float direction, float speed_pct, float dista
   }
   ROBUSMovement_stop();
   
-  /*Serial.print("RIGHT :");
+  Serial.print("RIGHT :");
   Serial.println(currentPulseRight);
   Serial.print("LEFT :");
   Serial.println(currentPulseLeft);
   Serial.print("error sum :");
-  Serial.println(errorSumStraight);*/
+  Serial.println(errorSumStraight);
   //Serial.print("derivative :");
   //Serial.println((pulsePIDLeft-(previousValue)));
   
@@ -309,7 +309,7 @@ void ROBUSMovement_moveStraight_cm(float direction, float speed_pct, float dista
  * the desired distance.
  * @return void 
  */
-/*void ROBUSMovement_turnOnSelf_deg(float direction, float speed_pct, float degrees)
+void ROBUSMovement_turnOnSelf(float direction, float speed_pct, float degrees)
 {
   float wantedPulse = ROBUSMovement_turnOnSelf_math(degrees);
   Serial.println(wantedPulse);
@@ -359,7 +359,7 @@ void ROBUSMovement_moveStraight_cm(float direction, float speed_pct, float dista
   Serial.print("error sum :");
   Serial.println(errorSumTurn);
   
-}*/
+}
 
 ///////////////////////
 
@@ -368,10 +368,11 @@ double SpeedRightTrigo = 0.0;
 
 int speedStatus = STATUS_STOPPED;
 
-double wantedPulse = 0.0;
-double wantedPulseDiff = 0.0;
+double wantedPulseDiff = 0;
 
-double currentSpeed = 0.0;
+double currentSpeed = 0;
+
+
 
 void ROBUSMovement_trigoMath(double angle, int direction)
 {
@@ -395,20 +396,17 @@ void ROBUSMovement_acceleration(){
   }
 }
 
-void ROBUSMovement_arcPulse(double arcangle){
+void ROBUSMovement_arcPulse(int arcangle){
   wantedPulseDiff = arcangle*ARC_PULSE_DIFFERENCE/90;
 }
-/*
+
 void ROBUSMovement_arcMove(double speed_pct, int color, int arcangle, int direction){
   if (arcangle == 90) wantedPulseDiff = ARC_PULSE_DIFFERENCE;
   else ROBUSMovement_arcPulse(arcangle);
 
-  
-
   double theta = 0;
   if      (color == COLOR_GREEN)  theta = THETA_GREEN;
   else if (color == COLOR_YELLOW) theta = THETA_YELLOW;
-  else if (color == COLOR_BLUE)   theta = THETA_BLUE;
 
   ROBUSMovement_trigoMath(theta, direction);
 
@@ -445,7 +443,7 @@ void ROBUSMovement_arcMove(double speed_pct, int color, int arcangle, int direct
   }
   ROBUSMovement_stop();
 
-}*/
+}
 
 void ROBUSMovement_EmergencyStop(){
   speedStatus = STATUS_EMERGENCYSTOP;
@@ -454,52 +452,21 @@ void ROBUSMovement_EmergencyStop(){
     
     if((currentInterval_ms-previousInterval_ms)>PID_INTERVAL_MS){
       ROBUSMovement_acceleration();
-      MOTOR_SetSpeed(RIGHT_MOTOR, SpeedRightTrigo*currentSpeed);
-      MOTOR_SetSpeed(LEFT_MOTOR, SpeedLeftTrigo*currentSpeed);
-      previousInterval_ms = currentInterval_ms;
     }
 
-    currentInterval_ms = millis();
+    currentInterval_ms  = millis();
   }
 }
 
-void ROBUSMovement_arcMoveTEST(int color, double arcangle, int direction, double distance_cm){
+void ROBUSMovement_arcMoveTEST(int color, int arcangle, int direction){
   speedStatus = STATUS_ACCELERATING;
 
-  ENCODER_Reset(LEFT_ENCODER);
-  ENCODER_Reset(RIGHT_ENCODER);
+  if (arcangle == 90) wantedPulseDiff = ARC_PULSE_DIFFERENCE;
+  else ROBUSMovement_arcPulse(arcangle);
 
-  int requirement = 0;
   double theta = 0;
-
-  //if an arcangle of 0: go straight
-  if (arcangle == 0) {
-    wantedPulse = (ROBUSMovement_moveStraight_math(distance_cm));
-    //Serial.println(wantedPulse);
-    requirement = REQUIREMENT_STRAIGHT_CM;
-    theta = 0;
-  }
-  //otherwise, travel the specified arc according to the color
-  else { 
-    
-    requirement = REQUIREMENT_TURN;
-
-    if (color == COLOR_GREEN)  {
-      theta = THETA_GREEN;
-      arcangle+=2;
-    }
-    else if (color == COLOR_YELLOW) {
-      theta = THETA_YELLOW;
-      //arcangle -=1;
-    }
-    else if (color == COLOR_BLUE) {
-      theta = THETA_BLUE;
-    }
-
-    if (arcangle == 90) wantedPulseDiff = ARC_PULSE_DIFFERENCE;
-    else ROBUSMovement_arcPulse(arcangle);
-    Serial.println(wantedPulseDiff);
-  }
+  if      (color == COLOR_GREEN)  theta = THETA_GREEN;
+  else if (color == COLOR_YELLOW) theta = THETA_YELLOW;
 
   ROBUSMovement_trigoMath(theta, direction);
 
@@ -514,10 +481,9 @@ void ROBUSMovement_arcMoveTEST(int color, double arcangle, int direction, double
   MOTOR_SetSpeed(RIGHT_MOTOR, speedRight);  
 
   previousInterval_ms = 0;
-
   unsigned long currentInterval_ms = millis();
-  
-  while(ROBUSMovement_whileStopRequirement(requirement, currentPulseRight, currentPulseLeft)){
+
+  while(abs(currentPulseLeft-currentPulseRight)<wantedPulseDiff){
     
     if((currentInterval_ms-previousInterval_ms)>PID_INTERVAL_MS){
 
@@ -532,33 +498,18 @@ void ROBUSMovement_arcMoveTEST(int color, double arcangle, int direction, double
 
       if((speedLeft < 0.8f) && (speedLeft > -0.8f)) MOTOR_SetSpeed(LEFT_MOTOR, speedLeft);
 
-      MOTOR_SetSpeed(RIGHT_MOTOR, SpeedRightTrigo*currentSpeed);
-      
-      previousInterval_ms = currentInterval_ms;
+      MOTOR_SetSpeed(RIGHT_MOTOR, abs(SpeedRightTrigo*currentSpeed));
 
+      Serial.println(SpeedRightTrigo*currentSpeed);
+
+      previousInterval_ms = currentInterval_ms;
     }
 
     currentInterval_ms  = millis();
   }
-  
-}
+  ROBUSMovement_EmergencyStop();
 
-bool ROBUSMovement_whileStopRequirement(int requirement, double currentPulseRight, double currentPulseLeft){
-  switch(requirement){
-    case REQUIREMENT_TURN:
-      if (abs(currentPulseLeft-currentPulseRight)>wantedPulseDiff) return 0;
-      break;
-    case REQUIREMENT_STRAIGHT_CM:
-      if (currentPulseRight >= wantedPulse) return 0;
-      break;      
-  }
-  return 1;
 }
 
 
-/* DEBUGGING COPY PASTE
-Serial.print("RIGHT : ");
-Serial.println(SpeedRightTrigo*currentSpeed);
-Serial.print("LEFT : ");
-Serial.println(speedLeft);
-      */
+

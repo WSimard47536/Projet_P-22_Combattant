@@ -12,8 +12,7 @@
 #define RIGHT_ENCODER 1
 
 // MOVEMENT CONSTANTS
-//#define FORWARD 1.0f
-#define FORWARD 0
+#define FORWARD 1.0f
 #define BACKWARD -1.0f
 #define RIGHT_TURN 1.0f
 #define LEFT_TURN -1.0f
@@ -39,23 +38,14 @@
 #define MAXSPEED 0.75
 #define STOPSPEED 0.0
 
-#define ARC_PULSE_DIFFERENCE 3865 // calculated : 3865
+#define ARC_PULSE_DIFFERENCE 3865
 
 #define COLOR_GREEN 1
 #define COLOR_BLUE 2
 #define COLOR_YELLOW 3
 
-#define THETA_GREEN  11
-#define THETA_YELLOW 6.8
-#define THETA_BLUE   18
-
-#define REQUIREMENT_TURN 0
-#define REQUIREMENT_STRAIGHT_CM 1
-
-#define NOT_USED 0
-
-#define STRAIGHT_8_FT 243.84 //243.84cm is too long so 7ft
-#define STRAIGHT_2_FT 53.34  //60.96cm is too long so 1.75ft
+#define THETA_GREEN 11
+#define THETA_YELLOW 5.5
 
 
 //FUNCTIONS
@@ -82,12 +72,11 @@ void ROBUSMovement_trigoMath(double angle, int direction);
 
 void ROBUSMovement_acceleration(double currentSpeed);
 
-void ROBUSMovement_arcPulse(double arcangle);
+void ROBUSMovement_arcPulse(int arcangle);
 
 void ROBUSMovement_arcMove(double speed_pct, int color, int arcangle, int direction);
 
-void ROBUSMovement_arcMoveTEST(int color, double arcangle, int direction, double distance_cm);
+
+void ROBUSMovement_arcMoveTEST(int color, int arcangle, int direction);
 
 void ROBUSMovement_EmergencyStop();
-
-bool ROBUSMovement_whileStopRequirement(int requirement, double currentPulseRight, double currentPulseLeft);
