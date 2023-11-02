@@ -24,3 +24,9 @@ void CupPlacer_PlaceCup();
  * @brief Reinitialiser of the servomotor mode and initial angle
 */
 void CupPlacer_Reset();
+
+/**
+ * @brief Turn around the cup when it is on the ground
+ * 
+ */
+void CupPlacer_TurnAroundCup();
