@@ -37,5 +37,7 @@ void ChallengeSolver_ExecuteAllSteps();
 void ChallengeSolver_ExecuteFirstLap();
 void ChallengeSolver_ExecuteSecondLap();
 
+void ChallengeSolver_TotallyFollowingTheLine();
+
 void ChallengerSolver_ExecuteRace();
 

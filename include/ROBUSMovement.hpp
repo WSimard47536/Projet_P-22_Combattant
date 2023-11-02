@@ -47,8 +47,8 @@
 #define COLOR_YELLOW 3
 
 #define THETA_GREEN  11
-#define THETA_YELLOW 6.8
-#define THETA_BLUE   18
+#define THETA_YELLOW 7.1
+#define THETA_BLUE   10.8
 
 #define DIRECTION_FORWARD 45
 #define DIRECTION_BACKWARD 135
@@ -60,12 +60,14 @@
 
 #define STRAIGHT_8_FT 243.84 
 #define STRAIGHT_2_FT 53.34  //60.96cm is too long so 1.75ft
+#define STRAIGHT_HALF_FT 15.2
 
-#define STRAIGHT_DIAG_LINE_1 85
+#define STRAIGHT_DIAG_LINE_1  69 // 85 total but we do 3ft total - 0.707*1ft (distance already crossed)
 #define STRAIGHT_LINE 61
 #define STRAIGHT_DIAG_LINE_2 86
 
 #define DEGREE_45 37
+#define DEGREE_90 88
 
 
 //FUNCTIONS

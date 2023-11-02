@@ -7,17 +7,15 @@
 #include "Ball_Detector/BallDetector.hpp"
 #include "Line_Follower/Line_follower.hpp"
 #include "Cup_Placer/CupPlacer.hpp"
+#include "Resolution/ChallengeSolver.hpp"
 
 int chosencolor = COLOR_GREEN;
 
 void setup() {
   BoardInit();
   //ColorDetector_init();
-  CupWhacker_Init();
-  /*InitializeProximitySensors();
-  ColorDetector_init();*/
-  LineFollower_Innit(PA_LINEFOLLOWER);
-  CupPlacer_Init();
+  //CupWhacker_Init();
+  //CupPlacer_Init();
 }
 
 void loop()
@@ -38,8 +36,12 @@ void loop()
     ROBUSMovement_momentaryPID_inwhile();
     
     
-  }
-  ROBUSMovement_EmergencyStop();*/
+  }*/
+
+  //ROBUSMovement_arcMove_straight(FORWARD, STRAIGHT_HALF_FT);
+  Serial.println(ENCODER_Read(RIGHT_ENCODER));
+  //ROBUSMovement_EmergencyStop();
+  delay(500);
 
   
 

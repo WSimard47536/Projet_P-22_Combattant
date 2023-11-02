@@ -29,11 +29,7 @@ float ratioContinuous = 0.0f;
 
 double currentPulseRight_continuous = 0;
 
-int requirement = 0;
-double theta = 0.0;
-double speedLeft = 0.0;
-double speedRight = 0.0;
-double ratio = 0.0;
+
 
 
 
@@ -69,6 +65,7 @@ void ROBUSMovement_stop()
 float ROBUSMovement_moveStraight_math(int distance_cm)
 {
   float pulse = ((float)distance_cm / CIRCUMFERENCE_WHEEL) * 3200.0f;
+  
   return pulse;
 }
 
@@ -114,6 +111,8 @@ float PID(float baseValue, float proportional, float integral, float derivative,
   return PID;
 }
 
+
+
 /**
  * @brief Trigonpometry math that uses sin and
  * cos to control the ratio of movement between
@@ -155,6 +154,8 @@ void ROBUSMovement_acceleration(){
   }
 }
 
+
+
 /**
  * @brief Produit croisé to
  * calculate the movement according 
@@ -192,42 +193,11 @@ void ROBUSMovement_EmergencyStop(){
   }
 }
 
-
-/**
- * @brief Sets the movement of
- * the robot according to the desired 
- * movement. Returns 1 if the robot should continue
- * and returns 0 if the robot has finished its movement
- * 
- * @param requirement
- * determines what the ending movement condition is.
- * If 0 (REQUIREMENT_TURN), the movement is a turn
- * and the difference of pulses between the motors
- * is used to determine when it finishes.
- * If 1 (REQUIREMENT_STRAIGHT_CM), the movement
- * is straight. It stops when the right encoder
- * reads more than the required value calculated
- * 
- * @param currentPulseRight, currentPulseLeft
- * These parameters are used to verify if the
- * robot should stop the movement.
- * 
- * @return bool 
- */
-bool ROBUSMovement_whileStopRequirement(int requirement, double currentPulseRight, double currentPulseLeft){
-  switch(requirement){
-    case REQUIREMENT_TURN:
-      if (abs(currentPulseLeft-currentPulseRight)>wantedPulseDiff) return 0;
-      break;
-    case REQUIREMENT_STRAIGHT_CM:
-      if (abs(currentPulseRight) >= wantedPulse) {
-        return 0;
-      }
-      break;      
-  }
-  return 1;
-}
-
+int requirement = 0;
+double theta = 0.0;
+double speedLeft = 0.0;
+double speedRight = 0.0;
+double ratio = 0.0;
 
 /**
  * @brief This function needs to be called
@@ -355,7 +325,6 @@ void ROBUSMovement_arcMove_straight(int direction, double distance_cm){
   wantedPulse = (ROBUSMovement_moveStraight_math(distance_cm));
 
   requirement = REQUIREMENT_STRAIGHT_CM;
-  
   ROBUSMovement_ArcMove_Init();
   ROBUSMovement_arcMove(requirement);
 }
@@ -380,7 +349,7 @@ void ROBUSMovement_arcMove_turn(int color, int direction, int directionTurn, dou
     theta += THETA_BLUE;
   }
 
-  theta = theta*directionTurn;
+  theta = theta*(double)directionTurn;
 
   if (arcAngle == 90) wantedPulseDiff = ARC_PULSE_DIFFERENCE;
   else ROBUSMovement_arcPulse(arcAngle);
@@ -412,18 +381,18 @@ void ROBUSMovement_ArcMove_Init(){
   previousInterval_ms = 0;
 }
 
-
+//je texte quand je vais me coucher si j'ai besoin
 
 void ROBUSMovement_arcMove(int requirement){
-  
 	while(ROBUSMovement_whileStopRequirement(requirement, currentPulseRight, currentPulseLeft)){
     if((millis()-previousInterval_ms)>PID_INTERVAL_MS){
       ROBUSMovement_acceleration();
-
       rightPulse = (float)ENCODER_ReadReset(RIGHT_ENCODER);
       leftPulse  = (float)ENCODER_ReadReset(LEFT_ENCODER);
       currentPulseRight += abs(rightPulse);
       currentPulseLeft  += abs(leftPulse);
+      Serial.println(currentPulseRight);
+      Serial.println(currentPulseLeft);
 
       speedLeft = SpeedLeftTrigo*PID(currentSpeed, KP, KI, 0, (abs(leftPulse)), (ratio*abs(rightPulse)), &errorSumTurn, 0);
 
@@ -434,7 +403,41 @@ void ROBUSMovement_arcMove(int requirement){
       previousInterval_ms = millis();
 	  }
 	}
-  
+}
+
+/**
+ * @brief Sets the movement of
+ * the robot according to the desired 
+ * movement. Returns 1 if the robot should continue
+ * and returns 0 if the robot has finished its movement
+ * 
+ * @param requirement
+ * determines what the ending movement condition is.
+ * If 0 (REQUIREMENT_TURN), the movement is a turn
+ * and the difference of pulses between the motors
+ * is used to determine when it finishes.
+ * If 1 (REQUIREMENT_STRAIGHT_CM), the movement
+ * is straight. It stops when the right encoder
+ * reads more than the required value calculated
+ * 
+ * @param currentPulseRight, currentPulseLeft
+ * These parameters are used to verify if the
+ * robot should stop the movement.
+ * 
+ * @return bool 
+ */
+bool ROBUSMovement_whileStopRequirement(int requirement, double currentPulseRight, double currentPulseLeft){
+  switch(requirement){
+    case REQUIREMENT_TURN:
+      if (abs(currentPulseLeft-currentPulseRight)>wantedPulseDiff) return 0;
+      break;
+    case REQUIREMENT_STRAIGHT_CM:
+      if (abs(currentPulseRight) >= wantedPulse) {
+        return 0;
+      }
+      break;      
+  }
+  return 1;
 }
 
 
@@ -467,6 +470,8 @@ float ROBUSMovement_turnOnSelf_math(int degrees)
   pulse = pulse / (360.0f*DIAMETER_WHEEL);
   return pulse;
 }
+
+
 
 /**
  * @brief Basic movement function that allows the

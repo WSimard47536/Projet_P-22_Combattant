@@ -20,6 +20,27 @@ void ChallengeSolver_ExecuteAllSteps()
 
 }
 
+void ChallengeSolver_TotallyFollowingTheLine(){
+    assignedColor = YELLOW;
+    ROBUSMovement_arcMove_straight(FORWARD, STRAIGHT_HALF_FT);
+    if (assignedColor == YELLOW)
+    {
+        ROBUSMovement_arcMove_straight(2, ROBUSMovement_turn_math(88));
+        ROBUSMovement_arcMove_straight(FORWARD, (2*STRAIGHT_HALF_FT));
+        ROBUSMovement_arcMove_straight(2, ROBUSMovement_turn_math(DEGREE_45));
+    }
+    else
+    {
+        ROBUSMovement_arcMove_straight(STRAIGHT_RIGHT_TURN, ROBUSMovement_turn_math(DEGREE_45));
+    }
+    ROBUSMovement_arcMove_straight(FORWARD, STRAIGHT_DIAG_LINE_1);
+    ROBUSMovement_arcMove_straight(3, ROBUSMovement_turn_math(DEGREE_45));
+    ROBUSMovement_arcMove_straight(FORWARD, STRAIGHT_LINE);
+    ROBUSMovement_arcMove_straight(3, ROBUSMovement_turn_math(DEGREE_45));
+    ROBUSMovement_arcMove_straight(FORWARD, STRAIGHT_DIAG_LINE_2);
+    ROBUSMovement_arcMove_straight(3, ROBUSMovement_turn_math(DEGREE_45));
+}
+
 void ChallengeSolver_ExecuteFirstLap()
 {
     // Turn Right (zone 1)
@@ -37,9 +58,9 @@ void ChallengeSolver_ExecuteFirstLap()
         ROBUSMovement_momentaryPID_inwhile();
         CupWhacker_main(assignedColor);
     }
-    ROBUSMovement_EmergencyStop();
+    //ROBUSMovement_EmergencyStop();
 
-    //METTRE CODE POUR "SUIVEUR DE LIGNE"
+    ChallengeSolver_TotallyFollowingTheLine();
 
 
 
