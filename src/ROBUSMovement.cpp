@@ -337,7 +337,7 @@ void ROBUSMovement_arcMove_turn(int color, int direction, int directionTurn, dou
   }
   else if (color == COLOR_YELLOW) {
     theta += THETA_YELLOW;
-    //angle +=5;
+    angle +=1;
   }
   else if (color == COLOR_BLUE || color == COLOR_RED) {
     theta += THETA_BLUE;

@@ -16,15 +16,43 @@ void ChallengeSolver_Init()
     //return (position.positionX_pulses % FULL_ROTATIONS_PULSES) / (position.positionY_pulses % FULL_ROTATIONS_PULSES);
 }*/
 
-void waitForBumper(){
+void waitForBumper(int bumberNumber){
     bool status = true;
     while(status){
-        int state = ROBUS_IsBumper(3); 
+        int state = ROBUS_IsBumper(bumberNumber); 
         if (state == 1)
         {
             status = false;
         }
         delay(100);
+    }
+}
+
+void startFromBumber(){
+    bool status = true;
+    int state_R = 0;
+    int state_L = 0;
+    int state_B = 0;
+    while(status){
+        int state_R = ROBUS_IsBumper(BUMBER_RIGHT); 
+        int state_L = ROBUS_IsBumper(BUMBER_RIGHT);
+        int state_B = ROBUS_IsBumper(BUMBER_BACK);
+        if (state_R == 1)
+        {
+            status = false;
+            assignedColor = GREEN;
+        }
+        else if (state_L == 1)
+        {
+            status = false;
+            assignedColor = YELLOW;
+        }
+        else if (state_B == 1)
+        {
+            status = false;
+            assignedColor = Color_Detection();
+        }
+        delay(50);
     }
 }
 
@@ -172,7 +200,7 @@ void ChallengeSolver_ExecuteSecondLap()
 
     // Turn Right (zone 6)
     //ROBUSMovement_arcMove_turn(COLOR_BLUE, FORWARD, RIGHT_TURN, 90.0);
-    if (assignedColor == YELLOW) ROBUSMovement_arcMove_straight(STRAIGHT_LEFT_TURN, ROBUSMovement_turn_math(75));
+    if (assignedColor == YELLOW) ROBUSMovement_arcMove_straight(STRAIGHT_LEFT_TURN, ROBUSMovement_turn_math(72));
     else if (assignedColor == GREEN) ROBUSMovement_arcMove_straight(STRAIGHT_LEFT_TURN, ROBUSMovement_turn_math(85));
 
     

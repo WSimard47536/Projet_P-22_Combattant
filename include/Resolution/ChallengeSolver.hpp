@@ -17,6 +17,11 @@
 
 #define ROBOT_RSIDE_GREEN_TO_WALL_DISTANCE_CM (60.96f - DISTANCE_BT_WHEEL) / 2
 
+#define BUMBER_BACK 3
+#define BUMBER_FRONT 2
+#define BUMBER_RIGHT 1
+#define BUMBER_LEFT 0
+
 typedef struct
 {
     float positionX_pulses;
@@ -42,5 +47,5 @@ void ChallengeSolver_dropCupTime();
 
 void ChallengerSolver_ExecuteRace();
 
-void waitForBumper();
+void waitForBumper(int bumperNumber);
 
