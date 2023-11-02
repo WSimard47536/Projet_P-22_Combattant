@@ -22,8 +22,11 @@ void loop()
   // RÉSOLUTION
   startFromBumber();
   //waitForWhistle();
+  if (ROBUS_IsBumper(3))
+  {
+    ChallengeSolver_ExecuteFirstLap();
+  }
   
-  ChallengeSolver_ExecuteFirstLap();
-  ChallengeSolver_ExecuteSecondLap();
-
+  //ChallengeSolver_ExecuteFirstLap();
+  //ChallengeSolver_ExecuteSecondLap();
 }
