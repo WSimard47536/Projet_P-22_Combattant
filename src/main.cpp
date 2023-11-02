@@ -6,6 +6,7 @@
 #include "integrationTesting/ROBUSMovement_test.hpp"
 #include "Ball_Detector/BallDetector.hpp"
 #include "Line_Follower/Line_follower.hpp"
+#include "Cup_Placer/CupPlacer.hpp"
 
 int chosencolor = COLOR_GREEN;
 
@@ -16,6 +17,7 @@ void setup() {
   /*InitializeProximitySensors();
   ColorDetector_init();*/
   LineFollower_Innit(PA_LINEFOLLOWER);
+  CupPlacer_Init();
 }
 
 void loop()

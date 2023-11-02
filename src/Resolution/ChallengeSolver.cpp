@@ -88,7 +88,11 @@ void ChallengeSolver_ExecuteFirstLap()
             break;
         }
     }*/
-    //ROBUSMovement_stop();
+    
+    ROBUSMovement_stop();
+    CupPlacer_PlaceCup();
+    delay(500);
+
     CupPlacer_TurnAroundCup();
 
     ROBUSMovement_arcMove_straight(FORWARD, 259.08); // 8 pieds et demi
