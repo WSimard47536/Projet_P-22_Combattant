@@ -13,7 +13,7 @@ void ColorDetector_init() {
     if (tcs.begin()) {
         Serial.println("Found sensor");
     } else {
-        Serial.println("No TCS34725 found ... check your connections");
+        Serial.println("No TCS34725 (color sensor) found ... check your connections");
         while (1); // halt!
     }
 }
@@ -109,7 +109,7 @@ int Color_Detection()
     {
         if (clear>150)
         {
-            color = YELLOW;
+            color = GREEN; // YELLOW
         }
         else
         {
@@ -133,14 +133,14 @@ int Color_Detection()
 
     if (green>blue && green>red)
     {
-        if (clear>102)
+        if (clear>150)
         {
-            color = GREEN;
+            color = YELLOW; //GREEN
         }
         
         else
         {
-           color = GREEN; 
+           color = YELLOW; //GREEN
         }
         
     }

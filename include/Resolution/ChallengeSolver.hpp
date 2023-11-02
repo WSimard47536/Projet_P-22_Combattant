@@ -38,6 +38,9 @@ void ChallengeSolver_ExecuteFirstLap();
 void ChallengeSolver_ExecuteSecondLap();
 
 void ChallengeSolver_TotallyFollowingTheLine();
+void ChallengeSolver_dropCupTime();
 
 void ChallengerSolver_ExecuteRace();
+
+void waitForBumper();
 

@@ -16,8 +16,8 @@
 #define BACKWARD -1.0f
 #define RIGHT_TURN 1.0f
 #define LEFT_TURN -1.0f
-#define STRAIGHT_RIGHT_TURN 3
-#define STRAIGHT_LEFT_TURN 2
+#define STRAIGHT_RIGHT_TURN 2
+#define STRAIGHT_LEFT_TURN 3
 
 // PID CONSTANTS
 #define PID_INTERVAL_MS 25.0l //25
@@ -44,10 +44,11 @@
 
 #define COLOR_GREEN 1
 #define COLOR_BLUE 2
-#define COLOR_YELLOW 3
+#define COLOR_YELLOW 3 
+#define COLOR_RED 4
 
-#define THETA_GREEN  11
-#define THETA_YELLOW 7.1
+#define THETA_GREEN  11.8
+#define THETA_YELLOW 7.5
 #define THETA_BLUE   10.8
 
 #define DIRECTION_FORWARD 45
@@ -59,14 +60,16 @@
 #define NOT_USED 0
 
 #define STRAIGHT_8_FT 243.84 
-#define STRAIGHT_2_FT 53.34  //60.96cm is too long so 1.75ft
+#define STRAIGHT_6_FT 170 //213.36 total too long so :))
+#define STRAIGHT_2_FT 60.96  //60.96cm is too long so 1.75ft
+#define STRAIGHT_134_FT 53.34
 #define STRAIGHT_HALF_FT 15.2
 
 #define STRAIGHT_DIAG_LINE_1  69 // 85 total but we do 3ft total - 0.707*1ft (distance already crossed)
 #define STRAIGHT_LINE 61
 #define STRAIGHT_DIAG_LINE_2 86
 
-#define DEGREE_45 37
+#define DEGREE_45 35  //37
 #define DEGREE_90 88
 
 
@@ -76,7 +79,7 @@ void ROBUSMovement_stop();
 
 void ROBUSMovement_EmergencyStop();
 
-
+void ROBUSMovement_resetPID();
 
 /*void ROBUSMovement_resetParameters();
 

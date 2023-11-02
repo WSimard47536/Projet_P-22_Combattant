@@ -6,7 +6,8 @@ int assignedColor;
 void ChallengeSolver_Init()
 {
     currentRobotPosition.positionX_pulses = 0; //START POSITION_x
-    assignedColor = Color_Detection();
+    //assignedColor = Color_Detection();
+    assignedColor = GREEN;
 }
 
 /*float GetRobotOrientation()
@@ -15,9 +16,28 @@ void ChallengeSolver_Init()
     //return (position.positionX_pulses % FULL_ROTATIONS_PULSES) / (position.positionY_pulses % FULL_ROTATIONS_PULSES);
 }*/
 
+void waitForBumper(){
+    bool status = true;
+    while(status){
+        int state = ROBUS_IsBumper(3); 
+        if (state == 1)
+        {
+            status = false;
+        }
+        delay(100);
+    }
+}
+
 void ChallengeSolver_ExecuteAllSteps()
 {
 
+}
+
+void ChallengeSolver_dropCupTime(){
+    CupPlacer_PlaceCup();
+    delay(500);
+    CupPlacer_TurnAroundCup();
+    ROBUSMovement_arcMove_straight(FORWARD, 259.08); // 8 pieds et demi
 }
 
 void ChallengeSolver_TotallyFollowingTheLine(){
@@ -25,20 +45,20 @@ void ChallengeSolver_TotallyFollowingTheLine(){
     ROBUSMovement_arcMove_straight(FORWARD, STRAIGHT_HALF_FT);
     if (assignedColor == YELLOW)
     {
-        ROBUSMovement_arcMove_straight(2, ROBUSMovement_turn_math(88));
+        ROBUSMovement_arcMove_straight(2, ROBUSMovement_turn_math(85));
         ROBUSMovement_arcMove_straight(FORWARD, (2*STRAIGHT_HALF_FT));
-        ROBUSMovement_arcMove_straight(2, ROBUSMovement_turn_math(DEGREE_45));
+        ROBUSMovement_arcMove_straight(3, ROBUSMovement_turn_math(DEGREE_45));
     }
     else
     {
         ROBUSMovement_arcMove_straight(STRAIGHT_RIGHT_TURN, ROBUSMovement_turn_math(DEGREE_45));
     }
     ROBUSMovement_arcMove_straight(FORWARD, STRAIGHT_DIAG_LINE_1);
-    ROBUSMovement_arcMove_straight(3, ROBUSMovement_turn_math(DEGREE_45));
+    ROBUSMovement_arcMove_straight(2, ROBUSMovement_turn_math(DEGREE_45));
     ROBUSMovement_arcMove_straight(FORWARD, STRAIGHT_LINE);
-    ROBUSMovement_arcMove_straight(3, ROBUSMovement_turn_math(DEGREE_45));
+    ROBUSMovement_arcMove_straight(2, ROBUSMovement_turn_math(DEGREE_45));
     ROBUSMovement_arcMove_straight(FORWARD, STRAIGHT_DIAG_LINE_2);
-    ROBUSMovement_arcMove_straight(3, ROBUSMovement_turn_math(DEGREE_45));
+    ROBUSMovement_arcMove_straight(2, ROBUSMovement_turn_math(DEGREE_45));
 }
 
 void ChallengeSolver_ExecuteFirstLap()
@@ -47,7 +67,12 @@ void ChallengeSolver_ExecuteFirstLap()
     ROBUSMovement_arcMove_turn(assignedColor, FORWARD, RIGHT_TURN, 90.0);
 
     // Straight (zone 2)
-    ROBUSMovement_arcMove_straight(FORWARD, STRAIGHT_2_FT);
+    if (assignedColor == GREEN){
+        ROBUSMovement_arcMove_straight(FORWARD, STRAIGHT_2_FT*0.8);
+    } 
+    else if (assignedColor==YELLOW){
+        ROBUSMovement_arcMove_straight(FORWARD, STRAIGHT_2_FT*1.5);
+    }
 
     // Turn Right (zone 3)
     ROBUSMovement_arcMove_turn(assignedColor, FORWARD, RIGHT_TURN, 90.0);
@@ -57,12 +82,24 @@ void ChallengeSolver_ExecuteFirstLap()
     while (ROBUSMovement_stopRequirementContinuous())
     {
         ROBUSMovement_momentaryPID_inwhile();
-        CupWhacker_main(assignedColor);
+        //CupWhacker_main(assignedColor);
     }
     //ROBUSMovement_EmergencyStop();
 
-    ChallengeSolver_TotallyFollowingTheLine();
+    //ChallengeSolver_TotallyFollowingTheLine();
+    ROBUSMovement_arcMove_turn(assignedColor, FORWARD, RIGHT_TURN, 90.0);\
 
+    if (assignedColor == GREEN){
+        ROBUSMovement_arcMove_straight(FORWARD, STRAIGHT_2_FT*0.8);
+    } 
+    else if (assignedColor==YELLOW){
+        ROBUSMovement_arcMove_straight(FORWARD, STRAIGHT_2_FT*1.3);
+    }
+    
+    ROBUSMovement_arcMove_turn(assignedColor, FORWARD, RIGHT_TURN, 90.0);
+    
+    ROBUSMovement_arcMove_straight(FORWARD, STRAIGHT_8_FT);
+    
 
 
     /*ROBUSMovement_moveStraight(FORWARD, 0.25f, ZONE4_5_DISTANCE_CM); // MESURER LA DISTANCE SUR LE PARCOURS
@@ -111,13 +148,10 @@ void ChallengeSolver_ExecuteFirstLap()
         }
     }*/
     
-    ROBUSMovement_stop();
-    CupPlacer_PlaceCup();
-    delay(500);
+    //ROBUSMovement_stop();
+    //ChallengeSolver_dropCupTime();
 
-    CupPlacer_TurnAroundCup();
-
-    ROBUSMovement_arcMove_straight(FORWARD, 259.08); // 8 pieds et demi
+    
 }
 
 void ChallengeSolver_ExecuteSecondLap()
@@ -129,17 +163,25 @@ void ChallengeSolver_ExecuteSecondLap()
     ROBUSMovement_arcMove_straight(FORWARD, STRAIGHT_2_FT);
 
     // Turn Right (zone 3)
-    ROBUSMovement_arcMove_turn(COLOR_GREEN, FORWARD, RIGHT_TURN, 90.0);
+    ROBUSMovement_arcMove_turn(COLOR_GREEN, FORWARD, RIGHT_TURN, 95.0);
 
     // Straight (zone 4 - 5)
-    ROBUSMovement_arcMove_straight(FORWARD, ZONE4_DISTANCE_CM);
+    ROBUSMovement_arcMove_straight(FORWARD, STRAIGHT_6_FT);
+
+    ROBUSMovement_EmergencyStop();
 
     // Turn Right (zone 6)
-    ROBUSMovement_arcMove_turn(COLOR_BLUE, FORWARD, RIGHT_TURN, 90.0);
+    //ROBUSMovement_arcMove_turn(COLOR_BLUE, FORWARD, RIGHT_TURN, 90.0);
+    if (assignedColor == YELLOW) ROBUSMovement_arcMove_straight(STRAIGHT_LEFT_TURN, ROBUSMovement_turn_math(75));
+    else if (assignedColor == GREEN) ROBUSMovement_arcMove_straight(STRAIGHT_LEFT_TURN, ROBUSMovement_turn_math(85));
+
+    
 
     ROBUSMovement_arcMove_straight(FORWARD, ZONE4_DISTANCE_CM); // 4 pieds devraient être en masse
 
-    ROBUSMovement_arcMove_straight(STRAIGHT_RIGHT_TURN, ROBUSMovement_turn_math(88));
+    ROBUSMovement_EmergencyStop();
+
+    ROBUSMovement_arcMove_straight(STRAIGHT_LEFT_TURN, ROBUSMovement_turn_math(70));
     // Straight (zone 6 - 9)
     /*float speedFactor = 0.95f;
     MOTOR_SetSpeed(LEFT_MOTOR,0.40f);
@@ -158,7 +200,8 @@ void ChallengeSolver_ExecuteSecondLap()
         }
     }
     ROBUSMovement_stop();*/
-    ROBUSMovement_arcMove_straight(FORWARD, 190.0); // 6 pieds
+    ROBUSMovement_arcMove_straight(FORWARD, 200); 
+    ROBUSMovement_EmergencyStop();
 }
 
 

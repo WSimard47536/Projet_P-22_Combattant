@@ -13,7 +13,8 @@ int chosencolor = COLOR_GREEN;
 
 void setup() {
   BoardInit();
-  //ColorDetector_init();
+  ColorDetector_init();
+  ChallengeSolver_Init();
   //CupWhacker_Init();
   //CupPlacer_Init();
 }
@@ -21,33 +22,16 @@ void setup() {
 void loop()
 {
   // RÉSOLUTION
-  /*waitForWhistle();
-
-  ChallengeSolver_ExecuteFirstLap();
-  ChallengeSolver_ExecuteSecondLap();*/
-  // RÉSOLUTION
-
-  delay(3000);
-  CupPlacer_PlaceCup();
-  delay(500);
-
-  /*ROBUSMovement_continuousPID_begin_cm(50);
-  while(ROBUSMovement_stopRequirementContinuous()){
-    ROBUSMovement_momentaryPID_inwhile();
-    
-    
-  }*/
-
-  //ROBUSMovement_arcMove_straight(FORWARD, STRAIGHT_HALF_FT);
-  Serial.println(ENCODER_Read(RIGHT_ENCODER));
-  //ROBUSMovement_EmergencyStop();
-  delay(500);
-
-  
-
   //waitForWhistle();
-  /*ColorDetector_detectColor();
-  int color=Color_Detection();
-  Serial.println(color);*/
-  //CupPlacer_TurnAroundCup();
+  waitForBumper();
+  ChallengeSolver_ExecuteFirstLap();
+  ChallengeSolver_ExecuteSecondLap();
+
+  //ROBUSMovement_arcMove_straight(FORWARD, STRAIGHT_6_FT);
+  //ROBUSMovement_EmergencyStop();
+  //ROBUSMovement_arcMove_straight(STRAIGHT_LEFT_TURN, ROBUSMovement_turn_math(80));
+  //ROBUSMovement_EmergencyStop();
+  //ROBUSMovement_arcMove_turn(GREEN, FORWARD, RIGHT_TURN, 90.0);
+  //ROBUSMovement_stop();
+
 }
