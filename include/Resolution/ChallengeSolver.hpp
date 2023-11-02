@@ -5,6 +5,7 @@
 #include "Distance_sensor/GP2D12.hpp"
 #include "Line_Follower/Line_follower.hpp"
 #include "CupWhacker.hpp"
+#include "Cup_Placer/CupPlacer.hpp"
 
 #define ZONE2_DISTANCE_CM 61.96f
 #define ZONE4_5_DISTANCE_CM 243.84f
