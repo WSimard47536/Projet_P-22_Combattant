@@ -1,4 +1,5 @@
 #include "Cup_Placer/CupPlacer.hpp"
+#include "ROBUSMovement.hpp"
 
 void CupPlacer_Init()
 {
@@ -16,4 +17,10 @@ void CupPlacer_PlaceCup()
 void CupPlacer_Reset()
 {
     S3003_setDefault(SERVO_CUP_PLACER);
+}
+
+void CupPlacer_TurnAroundCup(){
+    ROBUSMovement_moveStraight(BACKWARD, 0.3, 21.55);
+    ROBUSMovement_arcMove_straight(3, ROBUSMovement_turn_math(37));
+    ROBUSMovement_EmergencyStop();
 }
