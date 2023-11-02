@@ -109,7 +109,7 @@ void ChallengeSolver_ExecuteSecondLap()
 
     ROBUSMovement_arcMove_straight(FORWARD, ZONE4_DISTANCE_CM);
 
-    
+    ROBUSMovement_arcMove_straight(STRAIGHT_RIGHT_TURN, ROBUSMovement_turn_math(88));
     // Straight (zone 6 - 9)
     /*float speedFactor = 0.95f;
     MOTOR_SetSpeed(LEFT_MOTOR,0.40f);
