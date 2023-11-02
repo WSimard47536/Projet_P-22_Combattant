@@ -33,7 +33,8 @@ void ChallengeSolver_ExecuteFirstLap()
 
     // Move Straight and Whack the cup (zone 4 - 5)
     ROBUSMovement_continuousPID_begin_cm(STRAIGHT_8_FT);
-    while(ROBUSMovement_stopRequirementContinuous()){
+    while (ROBUSMovement_stopRequirementContinuous())
+    {
         ROBUSMovement_momentaryPID_inwhile();
         CupWhacker_main(assignedColor);
     }
@@ -115,7 +116,7 @@ void ChallengeSolver_ExecuteSecondLap()
     // Turn Right (zone 6)
     ROBUSMovement_arcMove_turn(COLOR_BLUE, FORWARD, RIGHT_TURN, 90.0);
 
-    ROBUSMovement_arcMove_straight(FORWARD, ZONE4_DISTANCE_CM);
+    ROBUSMovement_arcMove_straight(FORWARD, ZONE4_DISTANCE_CM); // 4 pieds devraient être en masse
 
     ROBUSMovement_arcMove_straight(STRAIGHT_RIGHT_TURN, ROBUSMovement_turn_math(88));
     // Straight (zone 6 - 9)
