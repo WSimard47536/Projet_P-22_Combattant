@@ -92,23 +92,25 @@ void ROBUSMovement_moveStraight(float direction, float speed_pct, float distance
 void ROBUSMovement_turnOnSelf(float direction, float speed_pct, float degrees);*/
 //ARC FUNCTIONS
 
+//void ROBUSMovement_arcMove_global(int color, double arcangle, int direction, int turnDirection, double distance_cm);
+
+//void ROBUSMovement_arcMoveTEST(int color, int arcangle, int direction);
+
+//void ROBUSMovement_arcMove(double speed_pct, int color, int arcangle, int direction);
+
+float ROBUSMovement_turn_math(double degrees);
+
 void ROBUSMovement_trigoMath(double angle, int turnDirection);
 
 void ROBUSMovement_acceleration(double currentSpeed);
 
 void ROBUSMovement_arcPulse(int arcangle);
 
-void ROBUSMovement_arcMove(double speed_pct, int color, int arcangle, int direction);
-
-//void ROBUSMovement_arcMove_global(int color, double arcangle, int direction, int turnDirection, double distance_cm);
-
-//void ROBUSMovement_arcMoveTEST(int color, int arcangle, int direction);
-
 bool ROBUSMovement_whileStopRequirement(int requirement, double currentPulseRight, double currentPulseLeft);
 
-void ROBUSMovement_momentaryPID_inwhile();
-
 //Continuous movement
+
+void ROBUSMovement_momentaryPID_inwhile();
 
 bool ROBUSMovement_stopRequirementContinuous();
 
@@ -116,12 +118,9 @@ void ROBUSMovement_continuousPID_begin_cm(double distance_cm);
 
 void ROBUSMovement_continuousPID_begin();
 
-bool ROBUSMovement_stopRequirementContinuous();
+///SIMPLIFIED ARC MOVEMENTS
 
 
-///TEST
-
-float ROBUSMovement_turn_math(double degrees);
 
 void ROBUSMovement_arcMove_straight(int direction, double distance_cm);
 void ROBUSMovement_arcMove_turn(int color, int direction, int directionTurn, double arcAngle);

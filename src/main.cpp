@@ -21,9 +21,6 @@ void setup() {
 void loop()
 {
   
-  
-  //Serial.println(4800/(analogRead(3)-20));
-  //CupWhacker_WhackCup();
 
   /*Serial.println(CupWhacker_main());
   delay(100);
@@ -32,52 +29,17 @@ void loop()
     bool isDetected = BallDetector_DetectBall(2);
     Serial.println(isDetected);
   }*/
+  
 
-
-  //ROBUSMovement_arcMove_straight(BACKWARD, 30.0);
-  //ROBUSMovement_arcMove_turn(chosencolor, );
-
-
-  ROBUSMovement_arcMove_straight(STRAIGHT_RIGHT_TURN, ROBUSMovement_turn_math(88));
-  delay(1000);
-
-  /*ROBUSMovement_continuousPID_begin_cm(STRAIGHT_8_FT);
+  /*ROBUSMovement_continuousPID_begin_cm(50);
   while(ROBUSMovement_stopRequirementContinuous()){
     ROBUSMovement_momentaryPID_inwhile();
+    
     
   }
   ROBUSMovement_EmergencyStop();*/
 
-  //ROBUSMovement_arcMove_global(chosencolor, 0, 2, NOT_USED, 20);
-
-  //ROBUSMovement_arcMove_global(chosencolor, 0, FORWARD, NOT_USED, 20);
   
-  
-  //ROBUSMovement_arcMove_global(COLOR_PURPLE, 0, 2, RIGHT_TURN, 5);
-
-  
-
-  //MOTOR_SetSpeed(LEFT_MOTOR, 0.5);
-  //ROBUSMovement_arcMove_global(chosencolor, 90.0, RIGHT_TURN, NOT_USED);
-  //ROBUSMovement_arcMove_global(chosencolor, 0, NOT_USED, STRAIGHT_2_FT);
-  //ROBUSMovement_arcMove_global(chosencolor, 90.0, RIGHT_TURN, NOT_USED);
-  //ROBUSMovement_arcMove_global(chosencolor, 0, NOT_USED, STRAIGHT_8_FT);
-  //ROBUSMovement_arcMove_global(chosencolor, 90.0, RIGHT_TURN, NOT_USED);
-  //ROBUSMovement_arcMove_global(chosencolor, 0, NOT_USED, STRAIGHT_2_FT);
-  //ROBUSMovement_arcMove_global(chosencolor, 90.0, RIGHT_TURN, NOT_USED);
-  //ROBUSMovement_arcMove_global(chosencolor, 0, NOT_USED, STRAIGHT_8_FT);
-  //ROBUSMovement_stop();
-  delay(5000);
-
-  /*S3003_SetAngle(1,0);
-
-  delay(3000);
-
-  S3003_SetAngle(1,180);
-
-  delay(3000);*/
-
-
 
   //waitForWhistle();
   /*ColorDetector_detectColor();
