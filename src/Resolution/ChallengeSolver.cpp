@@ -41,7 +41,7 @@ void ChallengeSolver_ExecuteFirstLap()
 
     //METTRE CODE POUR "SUIVEUR DE LIGNE"
 
-    
+
 
     /*ROBUSMovement_moveStraight(FORWARD, 0.25f, ZONE4_5_DISTANCE_CM); // MESURER LA DISTANCE SUR LE PARCOURS
 
@@ -89,6 +89,8 @@ void ChallengeSolver_ExecuteFirstLap()
         }
     }*/
     //ROBUSMovement_stop();
+    CupPlacer_TurnAroundCup();
+
     ROBUSMovement_arcMove_straight(FORWARD, 259.08); // 8 pieds et demi
 }
 

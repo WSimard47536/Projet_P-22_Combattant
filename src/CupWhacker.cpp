@@ -35,32 +35,18 @@ void CupWhacker_Reset()
 /**
  * @brief Whacks a detected cup
  */
-bool CupWhacker_WhackCup()
+bool CupWhacker_WhackCup(int track_Color)
 {
-    Serial.println("IN WHACKCUP");
-    track_Color = Color_Detection();
-    //track_Color = YELLOW;
-    //track_Color = Color_Detection();
-    
-    /*if(GP2D12_Read(3) < DISTANCE_CAPTAGE){
-        S3003_SetAngle(1,0);
-        return 1;
-    }
-
-    if(GP2D12_Read(0) < DISTANCE_CAPTAGE){
-        S3003_SetAngle(1,180);
-        return 1;
-    }*/
-
     if (track_Color == YELLOW){
-        if(GP2D12_Read(3) < DISTANCE_CAPTAGE){
+        //if(GP2D12_Read(3) < DISTANCE_CAPTAGE){
+        if(analogRead(3) >= 340){
             S3003_SetAngle(1,0);
             Serial.println("changed angle");
             return 1;
         }
     }
     else if (track_Color == GREEN){
-        if(GP2D12_Read(0) < DISTANCE_CAPTAGE){
+        if(analogRead(0) >= 400){
             S3003_SetAngle(1,180);
             return 1;
         }   
@@ -69,15 +55,19 @@ bool CupWhacker_WhackCup()
  
 }
 
-bool CupWhacker_main(){
+bool CupWhacker_main(int track_Color){
     switch (status){
         case 0: 
-        status = CupWhacker_WhackCup();
-        if (status == 1) startTime = millis();
+        status = CupWhacker_WhackCup(track_Color);
+        if (status == 1) 
+        {
+            startTime = millis();
+        }
         break;
         case 1: 
         if ((millis() - startTime) >= INTERVALLE_BRAS){
             S3003_SetAngle(1,90);
+            status = 0;
             return 1;
         }
         break;
