@@ -28,6 +28,6 @@ void CupWhacker_Reset();
 /**
  * @brief Whacks a detected cup
  */
-bool CupWhacker_WhackCup();
+bool CupWhacker_WhackCup(int track_Color);
 
-bool CupWhacker_main();
+bool CupWhacker_main(int track_Color);
