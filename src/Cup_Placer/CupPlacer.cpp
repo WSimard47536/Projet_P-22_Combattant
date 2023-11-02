@@ -19,7 +19,7 @@ void CupPlacer_Reset()
 }
 
 void CupPlacer_TurnAroundCup(){
-    ROBUSMovement_moveStraight(BACKWARD, 0.3, 21.55);
+    ROBUSMovement_arcMove_straight(BACKWARD, 21.55);
     ROBUSMovement_arcMove_straight(3, ROBUSMovement_turn_math(37));
     ROBUSMovement_EmergencyStop();
 }

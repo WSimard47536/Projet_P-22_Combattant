@@ -35,7 +35,7 @@ void ChallengeSolver_ExecuteFirstLap()
     ROBUSMovement_continuousPID_begin_cm(STRAIGHT_8_FT);
     while(ROBUSMovement_stopRequirementContinuous()){
         ROBUSMovement_momentaryPID_inwhile();
-        CupWhacker_main();
+        CupWhacker_main(assignedColor);
     }
     ROBUSMovement_EmergencyStop();
 
@@ -137,6 +137,7 @@ void ChallengeSolver_ExecuteSecondLap()
     }
     ROBUSMovement_stop();*/
     ROBUSMovement_arcMove_straight(FORWARD, 190.0); // 6 pieds
+}
 
 
 void ChallengerSolver_ExecuteRace()
