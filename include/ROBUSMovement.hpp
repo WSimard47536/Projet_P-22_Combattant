@@ -16,8 +16,8 @@
 #define BACKWARD -1.0f
 #define RIGHT_TURN 1.0f
 #define LEFT_TURN -1.0f
-#define STRAIGHT_RIGHT_TURN 2
-#define STRAIGHT_LEFT_TURN 3
+#define STRAIGHT_RIGHT_TURN 3
+#define STRAIGHT_LEFT_TURN 2
 
 // PID CONSTANTS
 #define PID_INTERVAL_MS 25.0l //25
@@ -45,12 +45,10 @@
 #define COLOR_GREEN 1
 #define COLOR_BLUE 2
 #define COLOR_YELLOW 3
-#define COLOR_PURPLE 4
 
 #define THETA_GREEN  11
 #define THETA_YELLOW 6.8
 #define THETA_BLUE   18
-#define THETA_PURPLE 20
 
 #define DIRECTION_FORWARD 45
 #define DIRECTION_BACKWARD 135
@@ -67,6 +65,8 @@
 #define STRAIGHT_LINE 61
 #define STRAIGHT_DIAG_LINE_2 86
 
+#define DEGREE_45 37
+
 
 //FUNCTIONS
 
@@ -76,7 +76,7 @@ void ROBUSMovement_EmergencyStop();
 
 
 
-void ROBUSMovement_resetParameters();
+/*void ROBUSMovement_resetParameters();
 
 
 void ROBUSMovement_initMovement();
@@ -89,9 +89,7 @@ float PID(float baseValue, float proportional, float integral, float derivative,
 
 void ROBUSMovement_moveStraight(float direction, float speed_pct, float distance_cm);
 
-void ROBUSMovement_turnOnSelf(float direction, float speed_pct, float degrees);
-
-void ROBUSMovement_EmergencyStop();
+void ROBUSMovement_turnOnSelf(float direction, float speed_pct, float degrees);*/
 //ARC FUNCTIONS
 
 void ROBUSMovement_trigoMath(double angle, int turnDirection);
@@ -102,9 +100,9 @@ void ROBUSMovement_arcPulse(int arcangle);
 
 void ROBUSMovement_arcMove(double speed_pct, int color, int arcangle, int direction);
 
-void ROBUSMovement_arcMove_global(int color, double arcangle, int direction, int turnDirection, double distance_cm);
+//void ROBUSMovement_arcMove_global(int color, double arcangle, int direction, int turnDirection, double distance_cm);
 
-void ROBUSMovement_arcMoveTEST(int color, int arcangle, int direction);
+//void ROBUSMovement_arcMoveTEST(int color, int arcangle, int direction);
 
 bool ROBUSMovement_whileStopRequirement(int requirement, double currentPulseRight, double currentPulseLeft);
 

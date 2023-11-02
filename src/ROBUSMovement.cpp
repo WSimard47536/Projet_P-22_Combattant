@@ -29,6 +29,12 @@ float ratioContinuous = 0.0f;
 
 double currentPulseRight_continuous = 0;
 
+int requirement = 0;
+double theta = 0.0;
+double speedLeft = 0.0;
+double speedRight = 0.0;
+double ratio = 0.0;
+
 
 
 /**
@@ -186,124 +192,6 @@ void ROBUSMovement_EmergencyStop(){
   }
 }
 
-/**
- * @brief Sets the movement of
- * the robot according to the desired 
- * movement. 
- * 
- * Turns are considered arcs. If the
- * angle is set to 0, it will go straight.
- * 
- * @param color
- * depending on which color the robot is,
- * the arc radius will change.
- * 
- * @param arcangle
- * determines how much the robot moves
- * according the the arc radius. Based on 90°.
- * Only used for turning movements, not straight.
- * 
- * @param direction
- * Determines whether the robot will go
- * right, left, forward or backward.
- * 
- * @param distance
- * This is only used when the robot goes
- * straight. Determines how long the robot
- * will move for before going out of the
- * function.
- * 
- * @return void 
- */
-void ROBUSMovement_arcMove_global(int color, double arcangle, int direction, int turnDirection, double distance_cm){
-  speedStatus = STATUS_ACCELERATING;
-
-  ENCODER_Reset(LEFT_ENCODER);
-  ENCODER_Reset(RIGHT_ENCODER);
-
-  double offSet = 0.0;
-  if (direction == BACKWARD) offSet = 180.0;
-  else if (direction == 2) offSet = 90.0;
-  else if (direction == 3) offSet = 270.0;
-
-  int requirement = 0;
-  double theta = offSet;
-
-  //if an arcangle of 0: go straight
-  if (arcangle == 0) {
-    wantedPulse = (ROBUSMovement_moveStraight_math(distance_cm));
-    //Serial.println(wantedPulse);
-    requirement = REQUIREMENT_STRAIGHT_CM;
-    theta += 0;
-  }
-  //otherwise, travel the specified arc according to the color
-  else { 
-    
-    requirement = REQUIREMENT_TURN;
-
-    if (color == COLOR_GREEN)  {
-      theta += THETA_GREEN;
-      arcangle+=2;
-    }
-    else if (color == COLOR_YELLOW) {
-      theta += THETA_YELLOW;
-      //arcangle -=1;
-    }
-    else if (color == COLOR_BLUE) {
-      theta += THETA_BLUE;
-    }
-    else if (color == COLOR_PURPLE) {
-      theta += THETA_PURPLE;
-    }
-
-    theta = theta*turnDirection;
-
-    if (arcangle == 90) wantedPulseDiff = ARC_PULSE_DIFFERENCE;
-    else ROBUSMovement_arcPulse(arcangle);
-    //Serial.println(wantedPulseDiff);
-  }
-
-  ROBUSMovement_trigoMath(theta);
-
-  double speedLeft  = currentSpeed*SpeedLeftTrigo;
-  double speedRight = currentSpeed*SpeedRightTrigo;
-  float ratio = SpeedLeftTrigo/SpeedRightTrigo;
-
-  double currentPulseLeft  = 0;
-  double currentPulseRight = 0;
-
-  MOTOR_SetSpeed(LEFT_MOTOR,  speedLeft);
-  MOTOR_SetSpeed(RIGHT_MOTOR, speedRight);  
-
-  previousInterval_ms = 0;
-
-  unsigned long currentInterval_ms = millis();
-  
-  while(ROBUSMovement_whileStopRequirement(requirement, currentPulseRight, currentPulseLeft)){
-    
-    if((currentInterval_ms-previousInterval_ms)>PID_INTERVAL_MS){
-
-      ROBUSMovement_acceleration();
-
-      rightPulse = (float)ENCODER_ReadReset(RIGHT_ENCODER);
-      leftPulse  = (float)ENCODER_ReadReset(LEFT_ENCODER);
-      currentPulseRight += abs(rightPulse);
-      currentPulseLeft  += abs(leftPulse);
-
-      speedLeft = SpeedLeftTrigo*PID(currentSpeed, KP, KI, 0, (abs(leftPulse)), (ratio*abs(rightPulse)), &errorSumTurn, 0);
-
-      if((speedLeft < 0.8f) && (speedLeft > -0.8f)) MOTOR_SetSpeed(LEFT_MOTOR, speedLeft);
-
-      MOTOR_SetSpeed(RIGHT_MOTOR, SpeedRightTrigo*currentSpeed);
-      
-      previousInterval_ms = currentInterval_ms;
-
-    }
-
-    currentInterval_ms  = millis();
-  }
-  
-}
 
 /**
  * @brief Sets the movement of
@@ -368,8 +256,6 @@ void ROBUSMovement_continuousPID_begin(int direction){
   previousInterval_ms = 0;
 }
 
-
-
 /**
  * @brief This function needs to be called
  * before any movement loop with an ending
@@ -390,24 +276,11 @@ void ROBUSMovement_continuousPID_begin_cm(double distance_cm){
 
   wantedPulse = (ROBUSMovement_moveStraight_math(abs(distance_cm)));
 
-  speedStatus = STATUS_ACCELERATING;
-
-  ENCODER_Reset(LEFT_ENCODER);
-  ENCODER_Reset(RIGHT_ENCODER);
-
   double angle = 0.0;
   if (distance_cm < 0) angle = 180.0;
   ROBUSMovement_trigoMath(angle);
 
-  double speedLeft  = currentSpeed*SpeedLeftTrigo;
-  double speedRight = currentSpeed*SpeedRightTrigo;
-  ratioContinuous = SpeedLeftTrigo/SpeedRightTrigo;
-
-  MOTOR_SetSpeed(LEFT_MOTOR,  speedLeft);
-  MOTOR_SetSpeed(RIGHT_MOTOR, speedRight);  
-
-  previousInterval_ms = 0;
-  currentPulseRight_continuous = 0;
+  ROBUSMovement_ArcMove_Init();
 }
 
 /**
@@ -429,9 +302,11 @@ void ROBUSMovement_momentaryPID_inwhile(){
 
     rightPulse = (float)ENCODER_ReadReset(RIGHT_ENCODER);
     leftPulse  = (float)ENCODER_ReadReset(LEFT_ENCODER);
-    currentPulseRight_continuous += abs(rightPulse);
+    currentPulseRight += abs(rightPulse);
 
-    MOTOR_SetSpeed(LEFT_MOTOR, SpeedLeftTrigo*PID(currentSpeed, KP, KI, 0, (abs(leftPulse)), (ratioContinuous*abs(rightPulse)), &errorSumTurn, 0));
+    speedLeft = SpeedLeftTrigo*PID(currentSpeed, KP, KI, 0, (abs(leftPulse)), (ratio*abs(rightPulse)), &errorSumTurn, 0);
+
+      if((speedLeft < 0.8f) && (speedLeft > -0.8f)) MOTOR_SetSpeed(LEFT_MOTOR, speedLeft);
 
     MOTOR_SetSpeed(RIGHT_MOTOR, SpeedRightTrigo*currentSpeed);
     
@@ -449,11 +324,11 @@ void ROBUSMovement_momentaryPID_inwhile(){
  * distance has been reached
  * @param 1
  * movement should continue
- * 
+ *
  * @return bool 
  */
 bool ROBUSMovement_stopRequirementContinuous(){
-  if (abs(currentPulseRight_continuous) >= wantedPulse) return 0;
+  if (abs(currentPulseRight) >= wantedPulse) return 0;
   else return 1;    
 }
 
@@ -468,17 +343,12 @@ float ROBUSMovement_turn_math(double degrees)
   return pulse;
 }
 
-int requirement = 0;
-double theta = 0.0;
-double speedLeft = 0.0;
-double speedRight = 0.0;
-double ratio = 0.0;
 
 void ROBUSMovement_arcMove_straight(int direction, double distance_cm){
   double offSet = 0.0;
   if (direction == BACKWARD) offSet = 180.0;
-  if (direction == STRAIGHT_LEFT_TURN) offSet = 90.0;
-  if (direction == STRAIGHT_RIGHT_TURN) offSet = 270.0;
+  else if (direction == STRAIGHT_LEFT_TURN) offSet = 90.0;
+  else if (direction == STRAIGHT_RIGHT_TURN) offSet = 270.0;
   requirement = 0;
   theta = offSet;
 
@@ -542,6 +412,8 @@ void ROBUSMovement_ArcMove_Init(){
   previousInterval_ms = 0;
 }
 
+
+
 void ROBUSMovement_arcMove(int requirement){
   
 	while(ROBUSMovement_whileStopRequirement(requirement, currentPulseRight, currentPulseLeft)){
@@ -577,18 +449,6 @@ void ROBUSMovement_arcMove(int requirement){
 /////////////////////////////
 
 /**
- * @brief Resets the movement parameters
- * affecting the PID (when different
- * movements)
- * 
- * @return void 
- */
-void ROBUSMovement_resetParameters()
-{
-  errorSumStraight = 0.0f;
-  errorSumTurn = 0.0f;
-}
-/**
  * @brief Basic math allowing to return the number
  * of pulses needed to reach the desired angle
  * (in centimeters). Based on the formula :
@@ -606,31 +466,6 @@ float ROBUSMovement_turnOnSelf_math(int degrees)
   float pulse = DISTANCE_BT_WHEEL * (float)degrees * 3200.0f;
   pulse = pulse / (360.0f*DIAMETER_WHEEL);
   return pulse;
-}
-
-
-/**
- * @brief Resets the movement variables
- * affecting the PID (every movement).
- * Is called in every movement function.
- * 
- * Resets the encoders
- * Sets the current pulses,
- * pulses, previous intervals
- * and previous variables to 0.
- * 
- * @return void 
- */
-void ROBUSMovement_initMovement()
-{
-  ENCODER_Reset(LEFT_ENCODER);
-  ENCODER_Reset(RIGHT_ENCODER);
-  currentPulseRight = 0.0f;
-  currentPulseLeft  = 0.0f;
-  rightPulse   = 0.0f;
-  leftPulse    = 0.0f;
-  previousInterval_ms = 0;
-  previousValue = 0.0f;
 }
 
 /**
@@ -652,7 +487,7 @@ void ROBUSMovement_initMovement()
  * the desired distance.
  * @return void 
  */
-void ROBUSMovement_moveStraight(float direction, float speed_pct, float distance_cm)
+/*void ROBUSMovement_moveStraight(float direction, float speed_pct, float distance_cm)
 {
   float wantedPulse = (ROBUSMovement_moveStraight_math(distance_cm));
   //float wantedPulse = 3200;
@@ -660,8 +495,6 @@ void ROBUSMovement_moveStraight(float direction, float speed_pct, float distance
 
   speed_pct = direction*speed_pct;
   float newSpeed = speed_pct;
-
-  //ROBUSMovement_initMovement();
 
   ENCODER_Reset(LEFT_ENCODER);
   ENCODER_Reset(RIGHT_ENCODER);
@@ -713,7 +546,7 @@ void ROBUSMovement_moveStraight(float direction, float speed_pct, float distance
   //Serial.print("derivative :");
   //Serial.println((pulsePIDLeft-(previousValue)));
   
-}
+}*/
 
 /* DEBUGGING COPY PASTE
 Serial.print("RIGHT : ");
@@ -975,5 +808,122 @@ void ROBUSMovement_arcMoveTEST(int color, int arcangle, int direction){
 
 }*/
 
-*/
 
+/**
+ * @brief Sets the movement of
+ * the robot according to the desired 
+ * movement. 
+ * 
+ * Turns are considered arcs. If the
+ * angle is set to 0, it will go straight.
+ * 
+ * @param color
+ * depending on which color the robot is,
+ * the arc radius will change.
+ * 
+ * @param arcangle
+ * determines how much the robot moves
+ * according the the arc radius. Based on 90°.
+ * Only used for turning movements, not straight.
+ * 
+ * @param direction
+ * Determines whether the robot will go
+ * right, left, forward or backward.
+ * 
+ * @param distance
+ * This is only used when the robot goes
+ * straight. Determines how long the robot
+ * will move for before going out of the
+ * function.
+ * 
+ * @return void 
+ */
+/*void ROBUSMovement_arcMove_global(int color, double arcangle, int direction, int turnDirection, double distance_cm){
+  speedStatus = STATUS_ACCELERATING;
+
+  ENCODER_Reset(LEFT_ENCODER);
+  ENCODER_Reset(RIGHT_ENCODER);
+
+  double offSet = 0.0;
+  if (direction == BACKWARD) offSet = 180.0;
+  else if (direction == 2) offSet = 90.0;
+  else if (direction == 3) offSet = 270.0;
+
+  int requirement = 0;
+  double theta = offSet;
+
+  //if an arcangle of 0: go straight
+  if (arcangle == 0) {
+    wantedPulse = (ROBUSMovement_moveStraight_math(distance_cm));
+    //Serial.println(wantedPulse);
+    requirement = REQUIREMENT_STRAIGHT_CM;
+    theta += 0;
+  }
+  //otherwise, travel the specified arc according to the color
+  else { 
+    
+    requirement = REQUIREMENT_TURN;
+
+    if (color == COLOR_GREEN)  {
+      theta += THETA_GREEN;
+      arcangle+=2;
+    }
+    else if (color == COLOR_YELLOW) {
+      theta += THETA_YELLOW;
+      //arcangle -=1;
+    }
+    else if (color == COLOR_BLUE) {
+      theta += THETA_BLUE;
+    }
+    else if (color == COLOR_PURPLE) {
+      theta += THETA_PURPLE;
+    }
+
+    theta = theta*turnDirection;
+
+    if (arcangle == 90) wantedPulseDiff = ARC_PULSE_DIFFERENCE;
+    else ROBUSMovement_arcPulse(arcangle);
+    //Serial.println(wantedPulseDiff);
+  }
+
+  ROBUSMovement_trigoMath(theta);
+
+  double speedLeft  = currentSpeed*SpeedLeftTrigo;
+  double speedRight = currentSpeed*SpeedRightTrigo;
+  float ratio = SpeedLeftTrigo/SpeedRightTrigo;
+
+  double currentPulseLeft  = 0;
+  double currentPulseRight = 0;
+
+  MOTOR_SetSpeed(LEFT_MOTOR,  speedLeft);
+  MOTOR_SetSpeed(RIGHT_MOTOR, speedRight);  
+
+  previousInterval_ms = 0;
+
+  unsigned long currentInterval_ms = millis();
+  
+  while(ROBUSMovement_whileStopRequirement(requirement, currentPulseRight, currentPulseLeft)){
+    
+    if((currentInterval_ms-previousInterval_ms)>PID_INTERVAL_MS){
+
+      ROBUSMovement_acceleration();
+
+      rightPulse = (float)ENCODER_ReadReset(RIGHT_ENCODER);
+      leftPulse  = (float)ENCODER_ReadReset(LEFT_ENCODER);
+      currentPulseRight += abs(rightPulse);
+      currentPulseLeft  += abs(leftPulse);
+
+      speedLeft = SpeedLeftTrigo*PID(currentSpeed, KP, KI, 0, (abs(leftPulse)), (ratio*abs(rightPulse)), &errorSumTurn, 0);
+
+      if((speedLeft < 0.8f) && (speedLeft > -0.8f)) MOTOR_SetSpeed(LEFT_MOTOR, speedLeft);
+
+      MOTOR_SetSpeed(RIGHT_MOTOR, SpeedRightTrigo*currentSpeed);
+      
+      previousInterval_ms = currentInterval_ms;
+
+    }
+
+    currentInterval_ms  = millis();
+  }
+  
+}*/
