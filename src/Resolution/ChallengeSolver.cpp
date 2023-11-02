@@ -41,6 +41,8 @@ void ChallengeSolver_ExecuteFirstLap()
 
     //METTRE CODE POUR "SUIVEUR DE LIGNE"
 
+    
+
     /*ROBUSMovement_moveStraight(FORWARD, 0.25f, ZONE4_5_DISTANCE_CM); // MESURER LA DISTANCE SUR LE PARCOURS
 
     // Turn to create intersection point with black line (zone 6)
@@ -87,7 +89,7 @@ void ChallengeSolver_ExecuteFirstLap()
         }
     }*/
     //ROBUSMovement_stop();
-    ROBUSMovement_arcMove_straight(FORWARD, STRAIGHT_8_FT);
+    ROBUSMovement_arcMove_straight(FORWARD, 259.08); // 8 pieds et demi
 }
 
 void ChallengeSolver_ExecuteSecondLap()
@@ -128,7 +130,7 @@ void ChallengeSolver_ExecuteSecondLap()
         }
     }
     ROBUSMovement_stop();*/
-    ROBUSMovement_arcMove_straight(FORWARD, STRAIGHT_8_FT);
+    ROBUSMovement_arcMove_straight(FORWARD, 190.0); // 6 pieds
 }
 
 void ChallengerSolver_ExecuteRace()
