@@ -7,6 +7,7 @@
 #include "Ball_Detector/BallDetector.hpp"
 #include "Line_Follower/Line_follower.hpp"
 #include "Cup_Placer/CupPlacer.hpp"
+#include "Resolution/ChallengeSolver.hpp"
 
 int chosencolor = COLOR_GREEN;
 
@@ -18,33 +19,21 @@ void setup() {
   ColorDetector_init();*/
   LineFollower_Innit(PA_LINEFOLLOWER);
   CupPlacer_Init();
+  ChallengeSolver_Init();
 }
 
 void loop()
 {
-  
+  // RÉSOLUTION
+  /*waitForWhistle();
 
-  /*Serial.println(CupWhacker_main());
-  delay(100);
+  ChallengeSolver_ExecuteFirstLap();
+  ChallengeSolver_ExecuteSecondLap();*/
+  // RÉSOLUTION
 
-  if(ROBUS_IsBumper(0)){
-    bool isDetected = BallDetector_DetectBall(2);
-    Serial.println(isDetected);
-  }*/
-  
+  delay(3000);
+  CupPlacer_PlaceCup();
+  delay(500);
 
-  /*ROBUSMovement_continuousPID_begin_cm(50);
-  while(ROBUSMovement_stopRequirementContinuous()){
-    ROBUSMovement_momentaryPID_inwhile();
-    
-    
-  }
-  ROBUSMovement_EmergencyStop();*/
-
-  
-
-  //waitForWhistle();
-  /*ColorDetector_detectColor();
-  int color=Color_Detection();
-  Serial.println(color);*/
+  CupPlacer_TurnAroundCup();
 }
