@@ -133,7 +133,7 @@ void ChallengeSolver_ExecuteSecondLap()
     }
     ROBUSMovement_stop();*/
     ROBUSMovement_arcMove_straight(FORWARD, 190.0); // 6 pieds
-}
+
 
 void ChallengerSolver_ExecuteRace()
 {
