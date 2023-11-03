@@ -13,20 +13,27 @@ void setup() {
   BoardInit();
   ColorDetector_init();
   ChallengeSolver_Init();
-  //CupWhacker_Init();
-  //CupPlacer_Init();
 }
 
 void loop()
 {
-  // RÉSOLUTION
   startFromBumber();
-  //waitForWhistle();
-  if (ROBUS_IsBumper(3))
-  {
-    ChallengeSolver_ExecuteFirstLap();
-  }
+  // SI PREMIER JAUNE FAIRE LES AUTRES VERT SINON VERT
+  ROBUSMovement_arcMove_straight(FORWARD, 13.0);
+  ChallengeSolver_ExecuteRaceLap(YELLOW);
   
-  //ChallengeSolver_ExecuteFirstLap();
-  //ChallengeSolver_ExecuteSecondLap();
+  ChallengeSolver_ExecuteRaceLap(GREEN);
+  ChallengeSolver_ExecuteRaceLap(GREEN);
+  ChallengeSolver_ExecuteRaceLap(GREEN);
+  ChallengeSolver_ExecuteRaceLap(GREEN);
+  ChallengeSolver_ExecuteRaceLap(GREEN);
+  ChallengeSolver_ExecuteRaceLap(GREEN);
+  ChallengeSolver_ExecuteRaceLap(GREEN);
+  ChallengeSolver_ExecuteRaceLap(GREEN);
+  ChallengeSolver_ExecuteRaceLap(GREEN);
+  ChallengeSolver_ExecuteRaceLap(GREEN);
+  ChallengeSolver_ExecuteRaceLap(GREEN);
+  ChallengeSolver_ExecuteRaceLap(GREEN);
+  ChallengeSolver_ExecuteRaceLap(GREEN);
+  ChallengeSolver_ExecuteRaceLap(GREEN);
 }

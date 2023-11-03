@@ -38,9 +38,13 @@ void GetRobotOrientation(RobotPosition position);
 
 void ChallengeSolver_Init();
 
+void startFromBumber();
+
 void ChallengeSolver_ExecuteAllSteps();
 void ChallengeSolver_ExecuteFirstLap();
 void ChallengeSolver_ExecuteSecondLap();
+
+void ChallengeSolver_ExecuteRaceLap(int color);
 
 void ChallengeSolver_TotallyFollowingTheLine();
 void ChallengeSolver_dropCupTime();

@@ -89,21 +89,21 @@ void ChallengeSolver_TotallyFollowingTheLine(){
     ROBUSMovement_arcMove_straight(2, ROBUSMovement_turn_math(DEGREE_45));
 }
 
-void ChallengeSolver_ExecuteRaceLap()
+void ChallengeSolver_ExecuteRaceLap(int color)
 {
     // Turn Right (zone 1)
-    ROBUSMovement_arcMove_turn(assignedColor, FORWARD, RIGHT_TURN, 90.0);
+    ROBUSMovement_arcMove_turn(color, FORWARD, RIGHT_TURN, 90.0);
 
     // Straight (zone 2)
-    if (assignedColor == GREEN){
+    if (color == GREEN){
         ROBUSMovement_arcMove_straight(FORWARD, STRAIGHT_2_FT*0.8);
     } 
-    else if (assignedColor==YELLOW){
+    else if (color==YELLOW){
         ROBUSMovement_arcMove_straight(FORWARD, STRAIGHT_2_FT*1.5);
     }
 
     // Turn Right (zone 3)
-    ROBUSMovement_arcMove_turn(assignedColor, FORWARD, RIGHT_TURN, 90.0);
+    ROBUSMovement_arcMove_turn(color, FORWARD, RIGHT_TURN, 90.0);
 
     // Move Straight and Whack the cup (zone 4 - 5)
     ROBUSMovement_continuousPID_begin_cm(STRAIGHT_8_FT);
@@ -114,7 +114,7 @@ void ChallengeSolver_ExecuteRaceLap()
     //ROBUSMovement_EmergencyStop();
 
     //ChallengeSolver_TotallyFollowingTheLine();
-    ROBUSMovement_arcMove_turn(assignedColor, FORWARD, RIGHT_TURN, 90.0);\
+    ROBUSMovement_arcMove_turn(color, FORWARD, RIGHT_TURN, 90.0);\
 
     if (assignedColor == GREEN){
         ROBUSMovement_arcMove_straight(FORWARD, STRAIGHT_2_FT*0.8);
@@ -123,7 +123,7 @@ void ChallengeSolver_ExecuteRaceLap()
         ROBUSMovement_arcMove_straight(FORWARD, STRAIGHT_2_FT*1.3);
     }
     
-    ROBUSMovement_arcMove_turn(assignedColor, FORWARD, RIGHT_TURN, 90.0);
+    ROBUSMovement_arcMove_turn(color, FORWARD, RIGHT_TURN, 90.0);
     
     ROBUSMovement_arcMove_straight(FORWARD, STRAIGHT_8_FT);    
 }
