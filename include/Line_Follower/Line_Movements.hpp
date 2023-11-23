@@ -32,7 +32,7 @@
 /// @brief The ratio between the right and the left wheel when turning full right
 #define LINE_MOVEMENT_RATIO_TURN_FARTHER_RIGHT 1.0f
 /// @brief How much should movements be divided by. If 1, forwards will be 0.5, max turn will be 0,1
-#define LINE_MOVEMENT_SPEED_DIVIDER 3
+#define LINE_MOVEMENT_SPEED_DIVIDER 5
 
 
 

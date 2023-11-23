@@ -42,18 +42,23 @@ int LFP_Read(int LineFollowerPin){
  * 
  * @return int
  * Value returned depending on the value of the analog read of the sensor
- * -1 : turn far on the left to find the line
- * -2 : turn on the left to find the line
- *  0 : move forward on the line
- *  1 : turn on the right to find the line
- *  2 : turn far on the right to find the line
- *  3 : error
- *  4 : ligne de départ
+ * -4 : the line is seen by the far left sensor
+ * -3 : the line is seen by the 2 left sensors
+ * -2 : the line is seen by the middle left sensor
+ * -1 : the line is seen by the middle left and the middle sensors
+ *  0 : move forward on the line (middle sensor)
+ *  1 : the line is seen by the middle right and middle sensors
+ *  2 : the line is seen by the middle right sensor
+ *  3 : the line is seen by the 2 right sensors
+ *  4 : the line is seen by the far right sensor
+ *  5 : error
+ *  6 : ligne de départ
  * 
  */
 
 int LineFollower_Read(int LineFollowerPin){
     int status = LFP_Read(LineFollowerPin);
+    //Serial.println(status);
     int move = 0;
     
     if (((PA_OOXOO-MARGE) < status) && (status < (PA_OOXOO+MARGE))){ 
@@ -99,5 +104,6 @@ int LineFollower_Read(int LineFollowerPin){
     else{
         move = ERROR;
     }
+    //Serial.println(move);
     return move;
 }
